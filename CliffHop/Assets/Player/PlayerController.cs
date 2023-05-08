@@ -13,9 +13,10 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
     private bool firstJump;
-    public bool canJump = true;
-    public int prevDir = 1;     // 0 -> direccion previa hacia la derecha, tendra que girar hacia la izquierda
-                                // 1 -> direccion previa hacia la izquierda, tendra que girar hacia la derechas
+    private bool canJump = true; // false -> esta en corner, y al darle espacio tiene que girar
+                                // true -> no esta en corner y al darle espacio tiene que saltar 
+    public int turnDir = 0;     // 0 -> turn right
+                                // 1 -> turn left
 
     // Start is called before the first frame update
     void Start()
@@ -40,16 +41,31 @@ public class PlayerController : MonoBehaviour
 
         velocity.x = runSpeed;
 
-        if (isGrounded && canJump && Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump"))
         {
-            velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
-            firstJump = true;
-        }
-        if (!isGrounded && firstJump && canJump && Input.GetButtonDown("Jump"))
-        {
-            velocity.y = 0;
-            velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
-            firstJump = false;
+            if (!canJump)
+            {
+                if (turnDir == 1)
+                {
+                    rotate_player_left();
+                } else
+                {
+                    rotate_player_right();
+                }
+            } else
+            {
+                if (isGrounded)
+                {
+                    velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
+                    firstJump = true;
+                }
+                if (!isGrounded && firstJump)
+                {
+                    velocity.y = 0;
+                    velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
+                    firstJump = false;
+                }
+            }
         }
         //transform.forward = velocity * Time.deltaTime;
         characterController.Move(new Vector3(transform.forward.x * velocity.x, velocity.y, transform.forward.z * velocity.x) * Time.deltaTime);
@@ -58,14 +74,17 @@ public class PlayerController : MonoBehaviour
     public void rotate_player_left()
     {
         transform.Rotate(new Vector3(0f, -90f, 0f));
-        prevDir = 1;
+        canJump = true;
     }
 
     public void rotate_player_right()
     {
         transform.Rotate(new Vector3(0f, 90f, 0f));
-        prevDir = 0;
+        canJump = true;
     }
 
-
+    public void setCanJump(bool state)
+    {
+        canJump = state;
+    }
 }

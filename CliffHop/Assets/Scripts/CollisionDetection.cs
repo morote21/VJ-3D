@@ -6,36 +6,25 @@ public class CollisionDetection : MonoBehaviour
 {
     // Start is called before the first frame update
     public PlayerController pc;
-    void OnTriggerExit(Collider c)
-    {
-        
-    }
-
-    void OnTriggerStay(Collider c)
+    
+    void OnTriggerEnter(Collider c)
     {
         if (c.tag == "CornerLeft")
         {
-            pc.canJump = false;
+            pc.setCanJump(false);
             Debug.Log("Turn left");
-            //Input.GetButtonDown("Jump") && 
-            if (Input.GetButtonDown("Jump") && pc.prevDir == 0)
-            {
-                pc.rotate_player_left();
-            }
+            pc.turnDir = 1;
         }
 
         if (c.tag == "CornerRight")
         {
-            pc.canJump = false;
+            pc.setCanJump(false);
             Debug.Log("Turn right");
-            if (Input.GetButtonDown("Jump") && pc.prevDir == 1)
-            {
-                pc.rotate_player_right();
-            }
+            pc.turnDir = 0;
         }
         if (c.tag != "CornerLeft" && c.tag != "CornerRight")
         {
-            pc.canJump = true;
+            pc.setCanJump(true);
         }
         
     }
