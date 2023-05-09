@@ -16,13 +16,13 @@ public class CollisionDetection : MonoBehaviour
             pc.turnDir = 1;
         }
 
-        if (c.tag == "CornerRight")
+        else if (c.tag == "CornerRight")
         {
             pc.setCanJump(false);
             Debug.Log("Turn right");
             pc.turnDir = 0;
         }
-        if (c.tag != "CornerLeft" && c.tag != "CornerRight")
+        else
         {
             pc.setCanJump(true);
         }
