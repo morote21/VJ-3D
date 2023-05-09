@@ -8,6 +8,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float runSpeed;
     [SerializeField] private float jumpHeight;
 
+
+    //private int score = 0;
+    private int coins = 0;
+
     private float gravity = -50.0f;
     private CharacterController characterController;
     private Vector3 velocity;
@@ -86,5 +90,15 @@ public class PlayerController : MonoBehaviour
     public void setCanJump(bool state)
     {
         canJump = state;
+    }
+
+    public void coinCollected()
+    {
+        coins += 1;
+    }
+
+    public int getCoinsCollected()
+    {
+        return coins;
     }
 }
