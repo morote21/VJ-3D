@@ -5,13 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] LayerMask groundLayers;
-    [SerializeField] private float runSpeed;
+    [SerializeField] private float normalRunSpeed;
+    [SerializeField] private float slowRunSpeed;
     [SerializeField] private float jumpHeight;
-
 
     //private int score = 0;
     private int coins = 0;
 
+    private float speedMovement;
     private float gravity = -50.0f;
     private CharacterController characterController;
     private Vector3 velocity;
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         firstJump = false;
         transform.forward = new Vector3(1, 0, 0);   // se inicia mirando hacia la derecha (direccion de las x)
+        speedMovement = normalRunSpeed;
     }
 
     // Update is called once per frame
@@ -43,7 +45,7 @@ public class PlayerController : MonoBehaviour
             velocity.y += gravity * Time.deltaTime;
         }
 
-        velocity.x = runSpeed;
+        velocity.x = speedMovement;
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -72,7 +74,9 @@ public class PlayerController : MonoBehaviour
             }
         }
         //transform.forward = velocity * Time.deltaTime;
-        characterController.Move(new Vector3(transform.forward.x * velocity.x, velocity.y, transform.forward.z * velocity.x) * Time.deltaTime);
+        Vector3 newPosition = new Vector3(transform.forward.x * velocity.x, velocity.y, transform.forward.z * velocity.x) * Time.deltaTime;
+        characterController.Move(newPosition);
+        //Debug.Log(transform.position);
     }
 
     public void rotate_player_left()
@@ -100,5 +104,23 @@ public class PlayerController : MonoBehaviour
     public int getCoinsCollected()
     {
         return coins;
+    }
+
+    public void death()
+    {
+        Debug.Log("Dead!");
+        characterController.Move(-transform.position);
+    }
+
+    public void slow(bool slow)
+    {
+        if (slow)
+        {
+            speedMovement = slowRunSpeed;
+        }
+        else
+        {
+            speedMovement = normalRunSpeed;
+        }
     }
 }
