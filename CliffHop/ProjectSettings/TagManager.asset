@@ -7,6 +7,8 @@ TagManager:
   - CornerLeft
   - CornerRight
   - Coin
+  - Death
+  - Slow
   layers:
   - Default
   - TransparentFX

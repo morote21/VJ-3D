@@ -15,6 +15,12 @@ public class CollisionDetection : MonoBehaviour
             Debug.Log("Turn left");
             pc.turnDir = 1;
         }
+        else if (c.tag == "CornerRight")
+        {
+            pc.setCanJump(false);
+            Debug.Log("Turn right");
+            pc.turnDir = 0;
+        }
         else if (c.tag == "Coin")
         {
             Debug.Log("Coin collected");
@@ -23,16 +29,21 @@ public class CollisionDetection : MonoBehaviour
             //c.gameObject.SetActive(false);
             Destroy(c.gameObject);
         }
-        else if (c.tag == "CornerRight")
+        else if (c.tag == "Death")
         {
-            pc.setCanJump(false);
-            Debug.Log("Turn right");
-            pc.turnDir = 0;
+            pc.death();
+        }
+        else if (c.tag == "Slow")
+        {
+            pc.slow(true);
         }
         else
         {
+            // estado normal del jugador (puede saltar y velocidad normal)
             pc.setCanJump(true);
+            pc.slow(false);
         }
         
     }
+
 }
