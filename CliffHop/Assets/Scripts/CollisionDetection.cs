@@ -15,7 +15,14 @@ public class CollisionDetection : MonoBehaviour
             Debug.Log("Turn left");
             pc.turnDir = 1;
         }
-
+        else if (c.tag == "Coin")
+        {
+            Debug.Log("Coin collected");
+            pc.coinCollected();
+            Debug.Log("Number of coins: " + pc.getCoinsCollected().ToString());
+            //c.gameObject.SetActive(false);
+            Destroy(c.gameObject);
+        }
         else if (c.tag == "CornerRight")
         {
             pc.setCanJump(false);

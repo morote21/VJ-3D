@@ -4,9 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Corner
   - CornerLeft
   - CornerRight
+  - Coin
   layers:
   - Default
   - TransparentFX
