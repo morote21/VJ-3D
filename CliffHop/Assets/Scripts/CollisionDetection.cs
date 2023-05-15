@@ -23,9 +23,9 @@ public class CollisionDetection : MonoBehaviour
         }
         else if (c.gameObject.tag == "Coin")
         {
-            //Debug.Log("Coin collected");
+            Debug.Log("Coin collected");
             pc.coinCollected();
-            //Debug.Log("Number of coins: " + pc.getCoinsCollected().ToString());
+            Debug.Log("Number of coins: " + pc.getCoinsCollected().ToString());
             //c.gameObject.SetActive(false);
             Destroy(c.gameObject);
         }
@@ -46,16 +46,5 @@ public class CollisionDetection : MonoBehaviour
         
     }
 
-    private void OnTriggerExit(Collider c)
-    {
-        if (c.gameObject.tag == "CornerLeft")
-        {
-            Debug.Log("Exit Turn left");
-        }
-        else if (c.gameObject.tag == "CornerRight")
-        {
-            Debug.Log("Exit Turn right");
-        }
-    }
 
 }
