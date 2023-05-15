@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     public int turnDir = 0;     // 0 -> turn right
                                 // 1 -> turn left
 
+    private bool dead;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,56 +34,61 @@ public class PlayerController : MonoBehaviour
         firstJump = false;
         transform.forward = new Vector3(1, 0, 0);   // se inicia mirando hacia la derecha (direccion de las x)
         speedMovement = normalRunSpeed;
+        dead = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics.CheckSphere(transform.position, 0.1f, groundLayers, QueryTriggerInteraction.Ignore);
-        if (isGrounded && velocity.y < 0)
+        if (!dead)
         {
-            velocity.y = 0;
-        } else
-        {
-            velocity.y += gravity * Time.deltaTime;
-        }
-
-        velocity.x = speedMovement;
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            if (!canJump)
+            isGrounded = Physics.CheckSphere(transform.position, 0.1f, groundLayers, QueryTriggerInteraction.Ignore);
+            if (isGrounded && velocity.y < 0)
             {
-                if (turnDir == 1)
-                {
-                    rotate_player_left();
-                } else
-                {
-                    rotate_player_right();
-                }
+                velocity.y = 0;
             } else
             {
-                if (isGrounded)
+                velocity.y += gravity * Time.deltaTime;
+            }
+
+            velocity.x = speedMovement;
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                if (!canJump)
                 {
-                    velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
-                    firstJump = true;
-                }
-                if (!isGrounded && firstJump)
+                    if (turnDir == 1)
+                    {
+                        rotate_player_left();
+                    } else
+                    {
+                        rotate_player_right();
+                    }
+                } else
                 {
-                    velocity.y = 0;
-                    velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
-                    firstJump = false;
+                    if (isGrounded)
+                    {
+                        velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
+                        firstJump = true;
+                    }
+                    if (!isGrounded && firstJump)
+                    {
+                        velocity.y = 0;
+                        velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
+                        firstJump = false;
+                    }
                 }
             }
-        }
-        //transform.forward = velocity * Time.deltaTime;
-        Vector3 newPosition = new Vector3(transform.forward.x * velocity.x, velocity.y, transform.forward.z * velocity.x) * Time.deltaTime;
-        characterController.Move(newPosition);
+            //transform.forward = velocity * Time.deltaTime;
+            Vector3 newPosition = new Vector3(transform.forward.x * velocity.x, velocity.y, transform.forward.z * velocity.x) * Time.deltaTime;
+            characterController.Move(newPosition);
 
-        animator.SetFloat("Speed", velocity.x);
-        animator.SetBool("IsGrounded", isGrounded);
-        animator.SetFloat("VerticalSpeed", velocity.y);
-        animator.SetBool("FirstJump", firstJump);
+            animator.SetFloat("Speed", velocity.x);
+            animator.SetBool("IsGrounded", isGrounded);
+            animator.SetFloat("VerticalSpeed", velocity.y);
+            animator.SetBool("FirstJump", firstJump);
+        }
+        animator.SetBool("Dead", dead);
     }
 
     public void rotate_player_left()
@@ -114,7 +121,13 @@ public class PlayerController : MonoBehaviour
     public void death()
     {
         Debug.Log("Dead!");
-        characterController.Move(-transform.position);
+        //characterController.Move(-transform.position);
+        dead = true;
+    }
+
+    public void alive()
+    {
+        dead = false;
     }
 
     public void slow(bool slow)
