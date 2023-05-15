@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private float speedMovement;
     private float gravity = -50.0f;
     private CharacterController characterController;
+    private Animator animator;
     private Vector3 velocity;
     private bool isGrounded;
     private bool firstJump;
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();  // in children, ya que es el ch09 quien tiene el animator (el cual es el hijo de la clase Player)
         firstJump = false;
         transform.forward = new Vector3(1, 0, 0);   // se inicia mirando hacia la derecha (direccion de las x)
         speedMovement = normalRunSpeed;
@@ -35,7 +37,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         isGrounded = Physics.CheckSphere(transform.position, 0.1f, groundLayers, QueryTriggerInteraction.Ignore);
         if (isGrounded && velocity.y < 0)
         {
@@ -76,7 +77,11 @@ public class PlayerController : MonoBehaviour
         //transform.forward = velocity * Time.deltaTime;
         Vector3 newPosition = new Vector3(transform.forward.x * velocity.x, velocity.y, transform.forward.z * velocity.x) * Time.deltaTime;
         characterController.Move(newPosition);
-        //Debug.Log(transform.position);
+
+        animator.SetFloat("Speed", velocity.x);
+        animator.SetBool("IsGrounded", isGrounded);
+        animator.SetFloat("VerticalSpeed", velocity.y);
+        animator.SetBool("FirstJump", firstJump);
     }
 
     public void rotate_player_left()

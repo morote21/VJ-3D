@@ -54,8 +54,8 @@ public class FollowTarget : MonoBehaviour
                 currentv_z = velocity;
         }
 
-        Debug.Log("Velocidad x = " + currentv_x);
-        Debug.Log("Velocidad z = " + currentv_z);
+        //Debug.Log("Velocidad x = " + currentv_x);
+        //Debug.Log("Velocidad z = " + currentv_z);
         // Eje y (por determinar)
         // ...
 
