@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         isGrounded = Physics.CheckSphere(transform.position, 0.1f, groundLayers, QueryTriggerInteraction.Ignore);
         if (isGrounded && velocity.y < 0)
         {
@@ -78,9 +77,11 @@ public class PlayerController : MonoBehaviour
         //transform.forward = velocity * Time.deltaTime;
         Vector3 newPosition = new Vector3(transform.forward.x * velocity.x, velocity.y, transform.forward.z * velocity.x) * Time.deltaTime;
         characterController.Move(newPosition);
-        //Debug.Log(transform.position);
 
         animator.SetFloat("Speed", velocity.x);
+        animator.SetBool("IsGrounded", isGrounded);
+        animator.SetFloat("VerticalSpeed", velocity.y);
+        animator.SetBool("FirstJump", firstJump);
     }
 
     public void rotate_player_left()

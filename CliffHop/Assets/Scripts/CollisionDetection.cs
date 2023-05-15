@@ -9,31 +9,31 @@ public class CollisionDetection : MonoBehaviour
     
     void OnTriggerEnter(Collider c)
     {
-        if (c.tag == "CornerLeft")
+        if (c.gameObject.tag == "CornerLeft")
         {
             pc.setCanJump(false);
-            Debug.Log("Turn left");
+            //Debug.Log("Turn left");
             pc.turnDir = 1;
         }
-        else if (c.tag == "CornerRight")
+        else if (c.gameObject.tag == "CornerRight")
         {
             pc.setCanJump(false);
-            Debug.Log("Turn right");
+            //Debug.Log("Turn right");
             pc.turnDir = 0;
         }
-        else if (c.tag == "Coin")
+        else if (c.gameObject.tag == "Coin")
         {
-            Debug.Log("Coin collected");
+            //Debug.Log("Coin collected");
             pc.coinCollected();
-            Debug.Log("Number of coins: " + pc.getCoinsCollected().ToString());
+            //Debug.Log("Number of coins: " + pc.getCoinsCollected().ToString());
             //c.gameObject.SetActive(false);
             Destroy(c.gameObject);
         }
-        else if (c.tag == "Death")
+        else if (c.gameObject.tag == "Death")
         {
             pc.death();
         }
-        else if (c.tag == "Slow")
+        else if (c.gameObject.tag == "Slow")
         {
             pc.slow(true);
         }
@@ -44,6 +44,18 @@ public class CollisionDetection : MonoBehaviour
             pc.slow(false);
         }
         
+    }
+
+    private void OnTriggerExit(Collider c)
+    {
+        if (c.gameObject.tag == "CornerLeft")
+        {
+            Debug.Log("Exit Turn left");
+        }
+        else if (c.gameObject.tag == "CornerRight")
+        {
+            Debug.Log("Exit Turn right");
+        }
     }
 
 }
