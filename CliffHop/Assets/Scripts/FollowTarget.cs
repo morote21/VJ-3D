@@ -12,17 +12,22 @@ public class FollowTarget : MonoBehaviour
 
     float currentv_x;
     float currentv_z;
+    Vector3 previousForward; // para activar desplazamiento si ha cambiado
 
 
     // Start is called before the first frame update
     void Start()
     {
         currentv_x = currentv_z = 0;
+        previousForward = target.forward;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (previousForward != target.forward)
+            currentv_x = currentv_z = velocity;
+
         Vector3 targetReference = target.position + target.forward*forward_displacement; 
 
         // Eje x
@@ -52,5 +57,8 @@ public class FollowTarget : MonoBehaviour
         //Debug.Log("Velocidad x = " + currentv_x);
         //Debug.Log("Velocidad z = " + currentv_z);
         // Eje y (por determinar)
+        // ...
+
+        previousForward = target.forward; // actualizar forward previo
     }
 }
