@@ -122,6 +122,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Dead!");
         //characterController.Move(-transform.position);
+
         dead = true;
     }
 
