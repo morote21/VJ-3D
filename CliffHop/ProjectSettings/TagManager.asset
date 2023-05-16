@@ -9,6 +9,9 @@ TagManager:
   - Coin
   - Death
   - Slow
+  - SawPath
+  - SawPathX
+  - SawPathY
   layers:
   - Default
   - TransparentFX
