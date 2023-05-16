@@ -15,16 +15,10 @@ public class SawPathingBehavior : MonoBehaviour
     [SerializeField] float rotationSpeed;
 
 
+
     void Start()
     {
-        if (dir == 0)
-        {
-            //transform.Rotate(-90, 0, 0);
-        }
-        else if (dir == 1)
-        {
-            //transform.Rotate(0, 0, -90);
-        }
+        
     }
 
     // Update is called once per frame
@@ -32,7 +26,9 @@ public class SawPathingBehavior : MonoBehaviour
     { 
         if (dir == 0)
         {
-            transform.Translate(speed, 0, 0);
+            // por defecto los rotates y translates se hacen en local space (space.self)
+            transform.Rotate(0, rotationSpeed * Time.deltaTime, 0, Space.Self);
+            transform.Translate(speed, 0, 0, Space.World);
         }
         else
         {
