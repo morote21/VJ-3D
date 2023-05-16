@@ -32,8 +32,8 @@ public class SawPathingBehavior : MonoBehaviour
         }
         else
         {
-            transform.Translate(0, 0, speed);
-            //transform.Rotate(rotationSpeed * Time.deltaTime, 0, 0);
+            transform.Rotate(0, rotationSpeed * Time.deltaTime, 0, Space.Self);
+            transform.Translate(0, 0, speed, Space.World);
         }
     }
 
@@ -41,16 +41,14 @@ public class SawPathingBehavior : MonoBehaviour
     {
         if (other.CompareTag("SawPath"))
         {
-            Debug.Log("Saw Path entered");
+            //Debug.Log("Saw Path entered");
         }
         else if (other.CompareTag("SawPathX"))
         {
-            Debug.Log("Saw Path X entered");
             dir = 0;
         }
-        else if (other.CompareTag("SawPathY"))
+        else if (other.CompareTag("SawPathZ"))
         {
-            Debug.Log("Saw Path Y entered");
             dir = 1;
         }
         else if (other.CompareTag("Untagged"))
