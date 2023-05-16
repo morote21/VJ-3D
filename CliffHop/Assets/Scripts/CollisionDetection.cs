@@ -12,13 +12,13 @@ public class CollisionDetection : MonoBehaviour
         if (c.gameObject.tag == "CornerLeft")
         {
             pc.setCanJump(false);
-            //Debug.Log("Turn left");
+            Debug.Log("Turn left");
             pc.turnDir = 1;
         }
         else if (c.gameObject.tag == "CornerRight")
         {
             pc.setCanJump(false);
-            //Debug.Log("Turn right");
+            Debug.Log("Turn right");
             pc.turnDir = 0;
         }
         else if (c.gameObject.tag == "Coin")

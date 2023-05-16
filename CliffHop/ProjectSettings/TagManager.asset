@@ -11,7 +11,9 @@ TagManager:
   - Slow
   - SawPath
   - SawPathX
-  - SawPathY
+  - SawPathZ
+  - CannonX
+  - CannonZ
   layers:
   - Default
   - TransparentFX

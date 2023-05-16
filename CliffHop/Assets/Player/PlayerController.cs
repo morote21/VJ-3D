@@ -18,23 +18,25 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Vector3 velocity;
     private bool isGrounded;
-    private bool firstJump;
+    private bool secondJump;
     private bool canJump = true; // false -> esta en corner, y al darle espacio tiene que girar
                                 // true -> no esta en corner y al darle espacio tiene que saltar 
     public int turnDir = 0;     // 0 -> turn right
                                 // 1 -> turn left
 
     private bool dead;
+    private bool jumping;
 
     // Start is called before the first frame update
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();  // in children, ya que es el ch09 quien tiene el animator (el cual es el hijo de la clase Player)
-        firstJump = false;
+        secondJump = false;
         transform.forward = new Vector3(1, 0, 0);   // se inicia mirando hacia la derecha (direccion de las x)
         speedMovement = normalRunSpeed;
         dead = false;
+        jumping = false;
     }
 
     // Update is called once per frame
@@ -46,9 +48,17 @@ public class PlayerController : MonoBehaviour
             if (isGrounded && velocity.y < 0)
             {
                 velocity.y = 0;
-            } else
+                jumping = false;
+                animator.Play("Running");
+            } 
+            else
             {
                 velocity.y += gravity * Time.deltaTime;
+            }
+
+            if (!isGrounded && !jumping)
+            {
+                animator.Play("Falling");
             }
 
             velocity.x = speedMovement;
@@ -69,13 +79,18 @@ public class PlayerController : MonoBehaviour
                     if (isGrounded)
                     {
                         velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
-                        firstJump = true;
+                        secondJump = true;
+                        animator.Play("Jump");
+                        jumping = true;
                     }
-                    if (!isGrounded && firstJump)
+                    else if (!isGrounded && secondJump)
                     {
                         velocity.y = 0;
                         velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
-                        firstJump = false;
+                        animator.Play("DoubleJump");
+                        secondJump = false;
+                        jumping = true;
+                        Debug.Log("Second jump");
                     }
                 }
             }
@@ -86,7 +101,7 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("Speed", velocity.x);
             animator.SetBool("IsGrounded", isGrounded);
             animator.SetFloat("VerticalSpeed", velocity.y);
-            animator.SetBool("FirstJump", firstJump);
+            animator.SetBool("SecondJump", secondJump);
         }
         animator.SetBool("Dead", dead);
     }
