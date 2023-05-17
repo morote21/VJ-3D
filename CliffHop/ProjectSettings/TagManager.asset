@@ -14,6 +14,8 @@ TagManager:
   - SawPathZ
   - CannonX
   - CannonZ
+  - MovingCubeX
+  - MovingCubeZ
   layers:
   - Default
   - TransparentFX
