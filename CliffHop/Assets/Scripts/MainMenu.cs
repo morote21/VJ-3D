@@ -10,4 +10,11 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene");
     }
+
+    public void GoToMenu (GameObject menu) {
+
+        menu.SetActive(true);
+        gameObject.SetActive(false);
+    
+    }
 }
