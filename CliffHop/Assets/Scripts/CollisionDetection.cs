@@ -9,6 +9,7 @@ public class CollisionDetection : MonoBehaviour
     
     void OnTriggerEnter(Collider c)
     {
+        /*
         if (c.gameObject.tag == "CornerLeft")
         {
             pc.setCanJump(false);
@@ -21,7 +22,8 @@ public class CollisionDetection : MonoBehaviour
             Debug.Log("Turn right");
             pc.turnDir = 0;
         }
-        else if (c.gameObject.tag == "Coin")
+        */
+        if (c.gameObject.tag == "Coin")
         {
             Debug.Log("Coin collected");
             pc.coinCollected();
@@ -46,5 +48,30 @@ public class CollisionDetection : MonoBehaviour
         
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("CornerLeft"))
+        {
+            if (pc.getPlayerCollider().bounds.Contains(other.bounds.center))
+            {
+                if (pc.turnDir == 0)
+                {
+                    pc.setCanJump(false);
+                    pc.turnDir = 1;
+                }
+            }
+        }
+        else if (other.CompareTag("CornerRight"))
+        {
+            if (pc.getPlayerCollider().bounds.Contains(other.bounds.center))
+            {
+                if (pc.turnDir == 1)
+                {
+                    pc.setCanJump(false);
+                    pc.turnDir = 0;
+                }
+            }
+        }
+    }
 
 }

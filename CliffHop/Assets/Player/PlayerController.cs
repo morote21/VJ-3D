@@ -70,10 +70,12 @@ public class PlayerController : MonoBehaviour
                     if (turnDir == 1)
                     {
                         rotate_player_left();
-                    } else
+                    }
+                    else
                     {
                         rotate_player_right();
                     }
+                    
                 } else
                 {
                     if (isGrounded)
@@ -157,4 +159,10 @@ public class PlayerController : MonoBehaviour
             speedMovement = normalRunSpeed;
         }
     }
+
+    public Collider getPlayerCollider()
+    {
+        return GetComponent<BoxCollider>();
+    }
+
 }
