@@ -6,6 +6,7 @@ public class CollisionDetection : MonoBehaviour
 {
     // Start is called before the first frame update
     public PlayerController pc;
+    private Collider actualCollider;
     
     void OnTriggerEnter(Collider c)
     {
@@ -58,6 +59,7 @@ public class CollisionDetection : MonoBehaviour
                 {
                     pc.setCanJump(false);
                     pc.turnDir = 1;
+                    actualCollider = other;
                 }
             }
         }
@@ -69,8 +71,17 @@ public class CollisionDetection : MonoBehaviour
                 {
                     pc.setCanJump(false);
                     pc.turnDir = 0;
+                    actualCollider = other;
                 }
             }
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            actualCollider.gameObject.GetComponent<Renderer>().material.color = Color.green;
         }
     }
 
