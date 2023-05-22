@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
     private bool secondJump;
-    private bool canJump = true; // false -> esta en corner, y al darle espacio tiene que girar
+    private bool canJump; // false -> esta en corner, y al darle espacio tiene que girar
                                 // true -> no esta en corner y al darle espacio tiene que saltar 
     public int turnDir = 0;     // 0 -> turn right
                                 // 1 -> turn left
@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
         speedMovement = normalRunSpeed;
         dead = false;
         jumping = false;
+        canJump = true;
     }
 
     // Update is called once per frame
@@ -79,14 +80,13 @@ public class PlayerController : MonoBehaviour
                     
                 } else
                 {
-                    if (isGrounded)
-                    {
-                        velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
-                        secondJump = true;
-                        animator.Play("Jump");
-                        jumping = true;
-                    }
-                    else if (!isGrounded && secondJump)
+                    
+                    velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
+                    secondJump = true;
+                    animator.Play("Jump");
+                    jumping = true;
+                    
+                    if (!isGrounded && secondJump)
                     {
                         velocity.y = 0;
                         velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
