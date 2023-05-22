@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private bool dead;
     private bool jumping;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -164,5 +165,6 @@ public class PlayerController : MonoBehaviour
     {
         return GetComponent<BoxCollider>();
     }
+
 
 }
