@@ -1014,7 +1014,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 722471271}
-  - component: {fileID: 722471272}
   - component: {fileID: 722471273}
   m_Layer: 5
   m_Name: InstructionsMenu
@@ -1047,18 +1046,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 350, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &722471272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722471270}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d68a87d2972f974c8274dc9147ac54b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &722471273
 MonoBehaviour:
   m_ObjectHideFlags: 0
