@@ -9,8 +9,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float slowRunSpeed;
     [SerializeField] private float jumpHeight;
 
+    private Collider actualCollider;
+
     //private int score = 0;
-    private int coins = 0;
+    private int coins = 0, corners = 0;
 
     private float speedMovement;
     private float gravity = -50.0f;
@@ -72,21 +74,45 @@ public class PlayerController : MonoBehaviour
                     if (turnDir == 1)
                     {
                         rotate_player_left();
+
+                        actualCollider.gameObject.GetComponent<Renderer>().material.color = Color.green;
+
+                        if (gameObject.transform.position.z < actualCollider.transform.position.z)   // en caso de que hayamos girado despues de que los centros sean iguales (en caso de la z va al reves)
+                        {
+                            characterController.Move(new Vector3(0, 0, -(gameObject.transform.position.z - actualCollider.transform.position.z)));
+                        }
+                        else if (gameObject.transform.position.z > actualCollider.transform.position.z)
+                        {
+                            characterController.Move(new Vector3(0, 0, (actualCollider.transform.position.z - gameObject.transform.position.z)));
+                        }
                     }
                     else
                     {
                         rotate_player_right();
+
+                        actualCollider.gameObject.GetComponent<Renderer>().material.color = Color.green;
+
+                        if (gameObject.transform.position.x < actualCollider.transform.position.x)   // en caso de que hayamos girado antes de que los centros sean iguales, se ajusta un poco para eviar problemas
+                        {
+                            characterController.Move(new Vector3((actualCollider.transform.position.x - gameObject.transform.position.x), 0, 0));
+                        }
+                        else if (gameObject.transform.position.x > actualCollider.transform.position.x)
+                        {
+                            characterController.Move(new Vector3(-(gameObject.transform.position.x - actualCollider.transform.position.x), 0, 0));
+                        }
                     }
                     
                 } else
                 {
                     
-                    velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
-                    secondJump = true;
-                    animator.Play("Jump");
-                    jumping = true;
-                    
-                    if (!isGrounded && secondJump)
+                    if (!jumping)
+                    {
+                        velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
+                        secondJump = true;
+                        animator.Play("Jump");
+                        jumping = true;
+                    }
+                    else if (jumping && !isGrounded && secondJump)
                     {
                         velocity.y = 0;
                         velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
@@ -113,12 +139,14 @@ public class PlayerController : MonoBehaviour
     {
         transform.Rotate(new Vector3(0f, -90f, 0f));
         canJump = true;
+        corners += 1;
     }
 
     public void rotate_player_right()
     {
         transform.Rotate(new Vector3(0f, 90f, 0f));
         canJump = true;
+        corners += 1;
     }
 
     public void setCanJump(bool state)
@@ -134,6 +162,11 @@ public class PlayerController : MonoBehaviour
     public int getCoinsCollected()
     {
         return coins;
+    }
+
+    public int getCornersTurned()
+    {
+        return corners;
     }
 
     public void death()
@@ -166,5 +199,9 @@ public class PlayerController : MonoBehaviour
         return GetComponent<BoxCollider>();
     }
 
+    public void setCollider(Collider c)
+    {
+        actualCollider = c;
+    }
 
 }
