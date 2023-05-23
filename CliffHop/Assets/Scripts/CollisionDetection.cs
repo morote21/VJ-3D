@@ -43,7 +43,7 @@ public class CollisionDetection : MonoBehaviour
         else
         {
             // estado normal del jugador (puede saltar y velocidad normal)
-            pc.setCanJump(true);
+            //pc.setCanJump(true);
             pc.slow(false);
         }
         
@@ -59,7 +59,8 @@ public class CollisionDetection : MonoBehaviour
                 {
                     pc.setCanJump(false);
                     pc.turnDir = 1;
-                    actualCollider = other;
+                    pc.setCollider(other);
+                    //actualCollider = other;
                 }
             }
         }
@@ -71,12 +72,14 @@ public class CollisionDetection : MonoBehaviour
                 {
                     pc.setCanJump(false);
                     pc.turnDir = 0;
-                    actualCollider = other;
+                    pc.setCollider(other);
+                    //actualCollider = other;
                 }
             }
         }
     }
 
+    /*
     private void Update()
     {
         if (Input.GetButtonDown("Jump") && (actualCollider.CompareTag("CornerRight") || actualCollider.CompareTag("CornerLeft")))
@@ -109,5 +112,5 @@ public class CollisionDetection : MonoBehaviour
             }
         }
     }
-
+    */
 }
