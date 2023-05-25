@@ -8,6 +8,7 @@ public class CannonShooting : MonoBehaviour
     public Transform bulletSpawnPoint;
     public GameObject bulletPrefab;
     [SerializeField] float bulletSpeed;
+    [SerializeField] private AudioSource cannonSoundEffect;
 
     private bool shoot;
 
@@ -20,12 +21,14 @@ public class CannonShooting : MonoBehaviour
     {
         if (shoot)
         {  
-                var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-                if (gameObject.CompareTag("CannonX"))
-                    bullet.GetComponent<Rigidbody>().velocity = -bulletSpawnPoint.right * bulletSpeed;
-                else if (gameObject.CompareTag("CannonZ"))
-                    bullet.GetComponent<Rigidbody>().velocity = bulletSpawnPoint.forward * bulletSpeed;
-                shoot = false;
+            var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            if (gameObject.CompareTag("CannonX"))
+                bullet.GetComponent<Rigidbody>().velocity = -bulletSpawnPoint.right * bulletSpeed;
+            else if (gameObject.CompareTag("CannonZ"))
+                bullet.GetComponent<Rigidbody>().velocity = bulletSpawnPoint.forward * bulletSpeed;
+            shoot = false;
+
+            cannonSoundEffect.Play();
         }
     }
 
