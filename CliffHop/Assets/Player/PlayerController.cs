@@ -8,26 +8,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float normalRunSpeed;
     [SerializeField] private float slowRunSpeed;
     [SerializeField] private float jumpHeight;
+    [SerializeField] private AudioSource jumpSoundEffect;
 
     private Collider actualCollider;
 
     //private int score = 0;
     private int coins = 0, corners = 0;
 
-    private float speedMovement;
-    private float gravity = -50.0f;
+    private float speedMovement, gravity = -50.0f;
     private CharacterController characterController;
     private Animator animator;
     private Vector3 velocity;
-    private bool isGrounded;
-    private bool secondJump;
+    private bool isGrounded, secondJump;
     private bool canJump; // false -> esta en corner, y al darle espacio tiene que girar
-                                // true -> no esta en corner y al darle espacio tiene que saltar 
+                          // true -> no esta en corner y al darle espacio tiene que saltar 
     public int turnDir = 0;     // 0 -> turn right
                                 // 1 -> turn left
 
-    private bool dead;
-    private bool jumping;
+    private bool dead, jumping;
 
 
     // Start is called before the first frame update
@@ -35,12 +33,10 @@ public class PlayerController : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();  // in children, ya que es el ch09 quien tiene el animator (el cual es el hijo de la clase Player)
-        secondJump = false;
+        secondJump = dead = jumping = false;
+        canJump = true;
         transform.forward = new Vector3(1, 0, 0);   // se inicia mirando hacia la derecha (direccion de las x)
         speedMovement = normalRunSpeed;
-        dead = false;
-        jumping = false;
-        canJump = true;
     }
 
     // Update is called once per frame
@@ -111,6 +107,7 @@ public class PlayerController : MonoBehaviour
                         secondJump = true;
                         animator.Play("Jump");
                         jumping = true;
+                        jumpSoundEffect.Play();
                     }
                     else if (jumping && !isGrounded && secondJump)
                     {
@@ -118,12 +115,11 @@ public class PlayerController : MonoBehaviour
                         velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
                         animator.Play("DoubleJump");
                         secondJump = false;
-                        jumping = true;
-                        Debug.Log("Second jump");
+                        //Debug.Log("Second jump");
+                        jumpSoundEffect.Play();
                     }
                 }
             }
-            //transform.forward = velocity * Time.deltaTime;
             Vector3 newPosition = new Vector3(transform.forward.x * velocity.x, velocity.y, transform.forward.z * velocity.x) * Time.deltaTime;
             characterController.Move(newPosition);
 
@@ -132,6 +128,15 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("VerticalSpeed", velocity.y);
             animator.SetBool("SecondJump", secondJump);
         }
+
+        else
+        {
+            Vector3 newPosition = new Vector3(-transform.forward.z * velocity.x, velocity.y, transform.forward.x * velocity.x) * Time.deltaTime;
+            characterController.Move(newPosition);
+
+            velocity.y += gravity * Time.deltaTime;
+        }
+
         animator.SetBool("Dead", dead);
     }
 
@@ -141,6 +146,7 @@ public class PlayerController : MonoBehaviour
         canJump = true;
         corners += 1;
     }
+
 
     public void rotate_player_right()
     {
@@ -172,9 +178,9 @@ public class PlayerController : MonoBehaviour
     public void death()
     {
         Debug.Log("Dead!");
-        //characterController.Move(-transform.position);
-
+        velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
         dead = true;
+        animator.Play("Falling");
     }
 
     public void alive()

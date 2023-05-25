@@ -7,7 +7,10 @@ public class CollisionDetection : MonoBehaviour
     // Start is called before the first frame update
     public PlayerController pc;
     private Collider actualCollider;
-    
+
+    [SerializeField] private AudioSource coinSoundEffect;
+
+
     void OnTriggerEnter(Collider c)
     {
         /*
@@ -31,6 +34,7 @@ public class CollisionDetection : MonoBehaviour
             Debug.Log("Number of coins: " + pc.getCoinsCollected().ToString());
             //c.gameObject.SetActive(false);
             Destroy(c.gameObject);
+            coinSoundEffect.Play();
         }
         else if (c.gameObject.tag == "Death")
         {
