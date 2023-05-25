@@ -210,4 +210,14 @@ public class PlayerController : MonoBehaviour
         actualCollider = c;
     }
 
+    public bool isOnGround()
+    { 
+        return isGrounded && !jumping;
+    }
+
+    public bool isAlive()
+    {
+        return !dead;
+    }
+
 }
