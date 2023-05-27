@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float slowRunSpeed;
     [SerializeField] private float jumpHeight;
     [SerializeField] private AudioSource jumpSoundEffect;
+    [SerializeField] private AudioSource turnSoundEffect;
 
     private Collider actualCollider;
 
@@ -71,6 +72,8 @@ public class PlayerController : MonoBehaviour
                     {
                         rotate_player_left();
 
+                        turnSoundEffect.Play();
+
                         actualCollider.gameObject.GetComponent<Renderer>().material.color = Color.green;
 
                         if (gameObject.transform.position.z < actualCollider.transform.position.z)   // en caso de que hayamos girado despues de que los centros sean iguales (en caso de la z va al reves)
@@ -85,6 +88,8 @@ public class PlayerController : MonoBehaviour
                     else
                     {
                         rotate_player_right();
+
+                        turnSoundEffect.Play();
 
                         actualCollider.gameObject.GetComponent<Renderer>().material.color = Color.green;
 
