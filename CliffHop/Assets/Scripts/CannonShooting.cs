@@ -7,6 +7,7 @@ public class CannonShooting : MonoBehaviour
     // Start is called before the first frame update
     public Transform bulletSpawnPoint;
     public GameObject bulletPrefab;
+    public ParticleSystem shotVFX;
     [SerializeField] float bulletSpeed;
     [SerializeField] private AudioSource cannonSoundEffect;
 
@@ -29,6 +30,7 @@ public class CannonShooting : MonoBehaviour
             shoot = false;
 
             cannonSoundEffect.Play();
+            shotVFX.Play();
         }
     }
 
