@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
     private bool dead, jumping;
 
+    public Material cornerPressedMaterial;
+
 
     // Start is called before the first frame update
     void Start()
@@ -74,7 +76,8 @@ public class PlayerController : MonoBehaviour
 
                         turnSoundEffect.Play();
 
-                        actualCollider.gameObject.GetComponent<Renderer>().material.color = Color.green;
+                        //actualCollider.gameObject.GetComponent<Renderer>().material.color = Color.green;
+                        actualCollider.gameObject.GetComponentInChildren<Renderer>().material = cornerPressedMaterial;
 
                         if (gameObject.transform.position.z < actualCollider.transform.position.z)   // en caso de que hayamos girado despues de que los centros sean iguales (en caso de la z va al reves)
                         {
@@ -91,7 +94,8 @@ public class PlayerController : MonoBehaviour
 
                         turnSoundEffect.Play();
 
-                        actualCollider.gameObject.GetComponent<Renderer>().material.color = Color.green;
+                        //actualCollider.gameObject.GetComponent<Renderer>().material.color = Color.green;
+                        actualCollider.gameObject.GetComponentInChildren<Renderer>().material = cornerPressedMaterial;
 
                         if (gameObject.transform.position.x < actualCollider.transform.position.x)   // en caso de que hayamos girado antes de que los centros sean iguales, se ajusta un poco para eviar problemas
                         {
