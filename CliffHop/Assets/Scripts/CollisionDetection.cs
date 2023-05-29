@@ -38,11 +38,28 @@ public class CollisionDetection : MonoBehaviour
         }
         else if (c.gameObject.tag == "Death")
         {
-            pc.death();
+            if (!pc.isGodMode() && !pc.isAlive())
+            {
+                pc.death();
+            }
         }
         else if (c.gameObject.tag == "Slow")
         {
-            pc.slow(true);
+            if (!pc.isGodMode())
+            {
+                pc.slow(true);
+            }
+        }
+        else if (c.gameObject.tag == "Win")
+        {
+            pc.victory();
+        }
+        else if (c.gameObject.tag == "Underwater")
+        {
+            if (pc.isGodMode())
+                pc.respawnToLastCorner();
+            else
+                pc.death();
         }
         else
         {
@@ -80,6 +97,18 @@ public class CollisionDetection : MonoBehaviour
                     //actualCollider = other;
                 }
             }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("CornerLeft"))
+        {
+            pc.setCanJump(true);
+        }
+        else if (other.CompareTag("CornerRight"))
+        {
+            pc.setCanJump(true);
         }
     }
 

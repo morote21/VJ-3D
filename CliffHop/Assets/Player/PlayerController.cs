@@ -18,15 +18,16 @@ public class PlayerController : MonoBehaviour
 
     private float speedMovement, gravity = -50.0f;
     private CharacterController characterController;
+    private Transform playerPosition;
     private Animator animator;
-    private Vector3 velocity;
+    private Vector3 velocity, lastCornerPosition;
     private bool isGrounded, secondJump;
     private bool canJump; // false -> esta en corner, y al darle espacio tiene que girar
                           // true -> no esta en corner y al darle espacio tiene que saltar 
     public int turnDir = 0;     // 0 -> turn right
                                 // 1 -> turn left
 
-    private bool dead, jumping;
+    private bool dead, jumping, win, godmode;
 
     public Material cornerPressedMaterial;
 
@@ -36,16 +37,17 @@ public class PlayerController : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();  // in children, ya que es el ch09 quien tiene el animator (el cual es el hijo de la clase Player)
-        secondJump = dead = jumping = false;
+        secondJump = dead = jumping = win = godmode = false;
         canJump = true;
         transform.forward = new Vector3(1, 0, 0);   // se inicia mirando hacia la derecha (direccion de las x)
         speedMovement = normalRunSpeed;
+        lastCornerPosition = new Vector3(0, 0, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!dead)
+        if (!dead && !win)
         {
             isGrounded = Physics.CheckSphere(transform.position, 0.1f, groundLayers, QueryTriggerInteraction.Ignore);
             if (isGrounded && velocity.y < 0)
@@ -59,12 +61,28 @@ public class PlayerController : MonoBehaviour
                 velocity.y += gravity * Time.deltaTime;
             }
 
-            if (!isGrounded && !jumping)
+            if (!isGrounded && !jumping && !godmode)
             {
                 animator.Play("Falling");
             }
 
             velocity.x = speedMovement;
+
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                godmode = !godmode;
+                if (godmode)
+                    Debug.Log("God mode activated");
+                else
+                    Debug.Log("God mode deactivated");
+            }
+
+            // se ha hecho funcion respawn para que cuando en godmode caiga al agua, reaparezca en el ultimo corner
+            // aun no funciona bien dependiendo de donde cae
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                respawnToLastCorner();
+            }
 
             if (Input.GetButtonDown("Jump"))
             {
@@ -81,10 +99,12 @@ public class PlayerController : MonoBehaviour
 
                         if (gameObject.transform.position.z < actualCollider.transform.position.z)   // en caso de que hayamos girado despues de que los centros sean iguales (en caso de la z va al reves)
                         {
+                            lastCornerPosition = actualCollider.transform.position;
                             characterController.Move(new Vector3(0, 0, -(gameObject.transform.position.z - actualCollider.transform.position.z)));
                         }
                         else if (gameObject.transform.position.z > actualCollider.transform.position.z)
                         {
+                            lastCornerPosition = actualCollider.transform.position;
                             characterController.Move(new Vector3(0, 0, (actualCollider.transform.position.z - gameObject.transform.position.z)));
                         }
                     }
@@ -99,10 +119,12 @@ public class PlayerController : MonoBehaviour
 
                         if (gameObject.transform.position.x < actualCollider.transform.position.x)   // en caso de que hayamos girado antes de que los centros sean iguales, se ajusta un poco para eviar problemas
                         {
+                            lastCornerPosition = actualCollider.transform.position;
                             characterController.Move(new Vector3((actualCollider.transform.position.x - gameObject.transform.position.x), 0, 0));
                         }
                         else if (gameObject.transform.position.x > actualCollider.transform.position.x)
                         {
+                            lastCornerPosition = actualCollider.transform.position;
                             characterController.Move(new Vector3(-(gameObject.transform.position.x - actualCollider.transform.position.x), 0, 0));
                         }
                     }
@@ -145,7 +167,8 @@ public class PlayerController : MonoBehaviour
 
             velocity.y += gravity * Time.deltaTime;
         }
-
+        Debug.Log(lastCornerPosition);
+        //Debug.Log(gameObject.transform.position);
         animator.SetBool("Dead", dead);
     }
 
@@ -189,7 +212,8 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Dead!");
         velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
         dead = true;
-        animator.Play("Falling");
+        //animator.Play("Falling");
+        animator.Play("Knocked Down");
     }
 
     public void alive()
@@ -227,6 +251,24 @@ public class PlayerController : MonoBehaviour
     public bool isAlive()
     {
         return !dead;
+    }
+
+    public void victory()
+    {
+        win = true;
+        velocity.x = velocity.y = 0;
+        gravity = 0;
+        animator.Play("Victory Idle");
+    }
+
+    public bool isGodMode()
+    {
+        return godmode;
+    }
+
+    public void respawnToLastCorner()
+    {
+        characterController.Move(lastCornerPosition - gameObject.transform.position);
     }
 
 }
