@@ -16,6 +16,8 @@ TagManager:
   - CannonZ
   - MovingCubeX
   - MovingCubeZ
+  - Win
+  - Underwater
   layers:
   - Default
   - TransparentFX
