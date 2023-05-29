@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
         canJump = true;
         transform.forward = new Vector3(1, 0, 0);   // se inicia mirando hacia la derecha (direccion de las x)
         speedMovement = normalRunSpeed;
-        lastCornerPosition = new Vector3(0, 0, 0);
+        lastCornerPosition = new Vector3(2, 1.01f, 0);
     }
 
     // Update is called once per frame
@@ -77,12 +77,6 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("God mode deactivated");
             }
 
-            // se ha hecho funcion respawn para que cuando en godmode caiga al agua, reaparezca en el ultimo corner
-            // aun no funciona bien dependiendo de donde cae
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                respawnToLastCorner();
-            }
 
             if (Input.GetButtonDown("Jump"))
             {
@@ -167,8 +161,8 @@ public class PlayerController : MonoBehaviour
 
             velocity.y += gravity * Time.deltaTime;
         }
-        Debug.Log(lastCornerPosition);
-        //Debug.Log(gameObject.transform.position);
+        //Debug.Log(lastCornerPosition);
+        //Debug.Log(canJump);
         animator.SetBool("Dead", dead);
     }
 
@@ -210,7 +204,8 @@ public class PlayerController : MonoBehaviour
     public void death()
     {
         Debug.Log("Dead!");
-        velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
+        if (!dead)
+            velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
         dead = true;
         //animator.Play("Falling");
         animator.Play("Knocked Down");
@@ -268,7 +263,21 @@ public class PlayerController : MonoBehaviour
 
     public void respawnToLastCorner()
     {
-        characterController.Move(lastCornerPosition - gameObject.transform.position);
+        //characterController.Move(lastCornerPosition - gameObject.transform.position);
+
+        characterController.enabled = false;
+        transform.position = lastCornerPosition;
+        characterController.enabled = true;
+
+        canJump = true;
+
+        // a causa de la condicion de turnDir en el triggerstay, nada mas entrar ya cambia el valor, aunque no se le haya dado a la tecla espacio
+        // y de normal al respawnear, como se respawnea en el corner anterior entonces se restablece menos en el origen, que al reaparecer en el 0,0,0 y no en un corner el valor cambia
+        // y no se vuelve a restablecer
+        if (corners == 0)   
+            turnDir = 1;   
+
+    
     }
 
 }
