@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2637,13 +2637,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4608274760846181936, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -4075916503123163478, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2232606120866082343, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_Name
       value: Hazard_SpikeTrap (11)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_TagString
       value: Death
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936097611402307293, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907053214580753034, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
@@ -12394,13 +12418,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4608274760846181936, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -4075916503123163478, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2232606120866082343, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_Name
       value: Hazard_SpikeTrap (6)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_TagString
       value: Death
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936097611402307293, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907053214580753034, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
@@ -13055,13 +13103,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4608274760846181936, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -4075916503123163478, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2232606120866082343, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_Name
       value: Hazard_SpikeTrap (2)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_TagString
       value: Death
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936097611402307293, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907053214580753034, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
@@ -56416,13 +56488,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4608274760846181936, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -4075916503123163478, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2232606120866082343, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_Name
       value: Hazard_SpikeTrap (10)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_TagString
       value: Death
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936097611402307293, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907053214580753034, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
@@ -61187,13 +61283,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4608274760846181936, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -4075916503123163478, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2232606120866082343, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_Name
       value: Hazard_SpikeTrap (8)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_TagString
       value: Death
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936097611402307293, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907053214580753034, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
@@ -80463,13 +80583,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4608274760846181936, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -4075916503123163478, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2232606120866082343, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_Name
       value: Hazard_SpikeTrap (7)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_TagString
       value: Death
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936097611402307293, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907053214580753034, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
@@ -81158,13 +81302,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4608274760846181936, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -4075916503123163478, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2232606120866082343, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_Name
       value: Hazard_SpikeTrap (3)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_TagString
       value: Death
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936097611402307293, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907053214580753034, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
@@ -82903,6 +83071,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1883052502}
     m_Modifications:
+    - target: {fileID: 45967144301555989, guid: a1dcd447bfbb3bc45821f8b436c031d2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 45967144301555989, guid: a1dcd447bfbb3bc45821f8b436c031d2, type: 3}
+      propertyPath: m_TagString
+      value: Win
+      objectReference: {fileID: 0}
+    - target: {fileID: 3520280827853628638, guid: a1dcd447bfbb3bc45821f8b436c031d2, type: 3}
+      propertyPath: m_Size.x
+      value: 9.897044
+      objectReference: {fileID: 0}
+    - target: {fileID: 3520280827853628638, guid: a1dcd447bfbb3bc45821f8b436c031d2, type: 3}
+      propertyPath: m_Size.z
+      value: 6.1284585
+      objectReference: {fileID: 0}
+    - target: {fileID: 3520280827853628638, guid: a1dcd447bfbb3bc45821f8b436c031d2, type: 3}
+      propertyPath: m_Center.x
+      value: 0.13666296
+      objectReference: {fileID: 0}
     - target: {fileID: 8515472688152868816, guid: a1dcd447bfbb3bc45821f8b436c031d2, type: 3}
       propertyPath: m_Name
       value: StylShip_Unity
@@ -93875,6 +94063,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1670608850}
   m_Mesh: {fileID: -3316878657673558038, guid: 695cfbe24de0d684c9a7d6844533f569, type: 3}
+--- !u!1 &1675541073 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 45967144301555989, guid: a1dcd447bfbb3bc45821f8b436c031d2, type: 3}
+  m_PrefabInstance: {fileID: 1631544076}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1675541078
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675541073}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1679403388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -96050,13 +96259,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4608274760846181936, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -4075916503123163478, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2232606120866082343, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_Name
       value: Hazard_SpikeTrap (4)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_TagString
       value: Death
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936097611402307293, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907053214580753034, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
@@ -109455,7 +109688,7 @@ GameObject:
   - component: {fileID: 1882821699}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Underwater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109468,10 +109701,10 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1882821698}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1882821700
@@ -120696,13 +120929,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4608274760846181936, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -4075916503123163478, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2232606120866082343, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_Name
       value: Hazard_SpikeTrap (5)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_TagString
       value: Death
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936097611402307293, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907053214580753034, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
@@ -122040,13 +122297,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4608274760846181936, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -4075916503123163478, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2232606120866082343, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_Name
       value: Hazard_SpikeTrap (9)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
       propertyPath: m_TagString
       value: Death
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936097611402307293, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907053214580753034, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c65c95489f2add4d8082df3b5dbf515, type: 3}
