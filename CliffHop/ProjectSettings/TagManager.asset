@@ -18,6 +18,8 @@ TagManager:
   - MovingCubeZ
   - Win
   - Underwater
+  - Jump
+  - DoubleJump
   layers:
   - Default
   - TransparentFX
