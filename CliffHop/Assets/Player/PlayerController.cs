@@ -57,7 +57,6 @@ public class PlayerController : MonoBehaviour
             {
                 if (jumping && !isGrounded && secondJump)
                 {
-                    Debug.Log("timer double jump");
                     velocity.y = 0;
                     velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
                     animator.Play("DoubleJump");
@@ -73,7 +72,7 @@ public class PlayerController : MonoBehaviour
         if (!dead && !win)
         {
             isGrounded = Physics.CheckSphere(transform.position, 0.1f, groundLayers, QueryTriggerInteraction.Ignore);
-            if (isGrounded && velocity.y < 0)
+            if (isGrounded && velocity.y < 0 && velocity.x > 0)
             {
                 velocity.y = 0;
                 jumping = false;
@@ -393,7 +392,6 @@ public class PlayerController : MonoBehaviour
                     jumping = true;
                     jumpSoundEffect.Play();
                     startTimer();
-                    Debug.Log("Timer started");
                 }
             }
         }
@@ -409,7 +407,6 @@ public class PlayerController : MonoBehaviour
                     jumping = true;
                     jumpSoundEffect.Play();
                     startTimer();
-                    Debug.Log("Timer started");
                 }
             }
         }
@@ -426,4 +423,8 @@ public class PlayerController : MonoBehaviour
         isRunning = false;
     }
 
+    public bool hasWon()
+    {
+        return win;
+    }
 }

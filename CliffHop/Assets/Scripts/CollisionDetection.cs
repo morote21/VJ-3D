@@ -13,22 +13,10 @@ public class CollisionDetection : MonoBehaviour
 
     void OnTriggerEnter(Collider c)
     {
-        /*
-        if (c.gameObject.tag == "CornerLeft")
-        {
-            Debug.Log("Turn left");
-        }
-        else if (c.gameObject.tag == "CornerRight")
-        {
-            Debug.Log("Turn right");
-        }
-        */
         
         if (c.gameObject.tag == "Coin")
         {
-            Debug.Log("Coin collected");
             pc.coinCollected();
-            Debug.Log("Number of coins: " + pc.getCoinsCollected().ToString());
             //c.gameObject.SetActive(false);
             Destroy(c.gameObject);
             coinSoundEffect.Play();
@@ -79,7 +67,6 @@ public class CollisionDetection : MonoBehaviour
                     pc.turnDir = 1;
                     pc.setCollider(other);
                     //actualCollider = other;
-                    Debug.Log("turn left!");
                 }
             }
         }
@@ -92,7 +79,6 @@ public class CollisionDetection : MonoBehaviour
                     pc.setCanJump(false);
                     pc.turnDir = 0;
                     pc.setCollider(other);
-                    Debug.Log("turn right!");
                     //actualCollider = other;
                 }
             }
