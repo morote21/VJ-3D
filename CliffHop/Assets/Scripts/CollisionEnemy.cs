@@ -59,4 +59,12 @@ public class CollisionEnemy : MonoBehaviour
             ec.setCanJump(true);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Stop"))
+        {
+            ec.stopMovement();
+        }
+    }
 }

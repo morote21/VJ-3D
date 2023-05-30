@@ -20,6 +20,7 @@ TagManager:
   - Underwater
   - Jump
   - DoubleJump
+  - Stop
   layers:
   - Default
   - TransparentFX
