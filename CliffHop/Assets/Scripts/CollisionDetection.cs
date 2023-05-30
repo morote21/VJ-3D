@@ -97,6 +97,22 @@ public class CollisionDetection : MonoBehaviour
                 }
             }
         }
+        else if (other.CompareTag("Jump"))
+        {
+            pc.setJumpCollider(other);
+            if (pc.isGodMode())
+            {
+                pc.jumpInGodMode();
+            }
+        }
+        else if (other.CompareTag("DoubleJump"))
+        {
+            pc.setJumpCollider(other);
+            if (pc.isGodMode())
+            {
+                pc.doubleJumpInGodMode();
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
