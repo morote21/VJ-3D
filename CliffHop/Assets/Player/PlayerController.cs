@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public int turnDir = 0;     // 0 -> turn right
                                 // 1 -> turn left
 
-    private bool dead, jumping, win, godmode, normalJump, doubleJump;
+    private bool dead, jumping, win, godmode;
 
     public Material cornerPressedMaterial;
 
@@ -43,8 +43,6 @@ public class PlayerController : MonoBehaviour
         transform.forward = new Vector3(1, 0, 0);   // se inicia mirando hacia la derecha (direccion de las x)
         speedMovement = normalRunSpeed;
         lastCornerPosition = new Vector3(2, 1.01f, 0);
-        normalJump = false;
-        doubleJump = false;
         currentTime = 0f;
         djumpTime = 0.55f;
     }
