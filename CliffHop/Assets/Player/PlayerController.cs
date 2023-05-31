@@ -10,12 +10,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpHeight;
     [SerializeField] private AudioSource jumpSoundEffect;
     [SerializeField] private AudioSource turnSoundEffect;
+    [SerializeField] private AudioSource doubleJumpSoundEffect;
 
     private Collider actualCollider;
     private Collider jumpCollider;
 
     //private int score = 0;
-    private int coins = 0, corners = 0;
+    private int corners = 0;
 
     private float speedMovement, gravity = -50.0f, currentTime, djumpTime;
     private CharacterController characterController;
@@ -28,7 +29,7 @@ public class PlayerController : MonoBehaviour
     public int turnDir = 0;     // 0 -> turn right
                                 // 1 -> turn left
 
-    private bool dead, jumping, win, godmode, normalJump, doubleJump;
+    private bool dead, jumping, win, godmode;
 
     public Material cornerPressedMaterial;
 
@@ -43,8 +44,6 @@ public class PlayerController : MonoBehaviour
         transform.forward = new Vector3(1, 0, 0);   // se inicia mirando hacia la derecha (direccion de las x)
         speedMovement = normalRunSpeed;
         lastCornerPosition = new Vector3(2, 1.01f, 0);
-        normalJump = false;
-        doubleJump = false;
         currentTime = 0f;
         djumpTime = 0.55f;
     }
@@ -59,13 +58,12 @@ public class PlayerController : MonoBehaviour
             {
                 if (jumping && !isGrounded && secondJump)
                 {
-                    Debug.Log("timer double jump");
                     velocity.y = 0;
                     velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
                     animator.Play("DoubleJump");
                     secondJump = false;
                     //Debug.Log("Second jump");
-                    jumpSoundEffect.Play();
+                    doubleJumpSoundEffect.Play();
                     stopTimer();
                 }
             }
@@ -75,7 +73,7 @@ public class PlayerController : MonoBehaviour
         if (!dead && !win)
         {
             isGrounded = Physics.CheckSphere(transform.position, 0.1f, groundLayers, QueryTriggerInteraction.Ignore);
-            if (isGrounded && velocity.y < 0)
+            if (isGrounded && velocity.y < 0 && velocity.x > 0)
             {
                 velocity.y = 0;
                 jumping = false;
@@ -204,7 +202,7 @@ public class PlayerController : MonoBehaviour
                             animator.Play("DoubleJump");
                             secondJump = false;
                             //Debug.Log("Second jump");
-                            jumpSoundEffect.Play();
+                            doubleJumpSoundEffect.Play();
                         }
                     }
                 }
@@ -236,6 +234,7 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(new Vector3(0f, -90f, 0f));
         canJump = true;
         corners += 1;
+        GameManager.instance.setHighScore(corners);   // si es highscore o no se comprueba dentro de gm
     }
 
 
@@ -244,6 +243,7 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(new Vector3(0f, 90f, 0f));
         canJump = true;
         corners += 1;
+        GameManager.instance.setHighScore(corners);   // si es highscore o no se comprueba dentro de gm
     }
 
     public void setCanJump(bool state)
@@ -251,15 +251,6 @@ public class PlayerController : MonoBehaviour
         canJump = state;
     }
 
-    public void coinCollected()
-    {
-        coins += 1;
-    }
-
-    public int getCoinsCollected()
-    {
-        return coins;
-    }
 
     public int getCornersTurned()
     {
@@ -395,7 +386,6 @@ public class PlayerController : MonoBehaviour
                     jumping = true;
                     jumpSoundEffect.Play();
                     startTimer();
-                    Debug.Log("Timer started");
                 }
             }
         }
@@ -411,7 +401,6 @@ public class PlayerController : MonoBehaviour
                     jumping = true;
                     jumpSoundEffect.Play();
                     startTimer();
-                    Debug.Log("Timer started");
                 }
             }
         }
@@ -428,4 +417,8 @@ public class PlayerController : MonoBehaviour
         isRunning = false;
     }
 
+    public bool hasWon()
+    {
+        return win;
+    }
 }
