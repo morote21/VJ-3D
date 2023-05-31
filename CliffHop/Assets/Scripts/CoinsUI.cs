@@ -18,6 +18,6 @@ public class CoinsUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        coinsText.text = pc.getCoinsCollected().ToString();
+        coinsText.text = GameManager.instance.getCoins().ToString();
     }
 }

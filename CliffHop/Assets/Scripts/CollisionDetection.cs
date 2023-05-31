@@ -16,7 +16,7 @@ public class CollisionDetection : MonoBehaviour
         
         if (c.gameObject.tag == "Coin")
         {
-            pc.coinCollected();
+            GameManager.instance.coinPickup();
             //c.gameObject.SetActive(false);
             Destroy(c.gameObject);
             coinSoundEffect.Play();
