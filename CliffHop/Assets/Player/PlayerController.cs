@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private bool dead, jumping, win, godmode;
 
     public Material cornerPressedMaterial;
+    public ParticleSystem hitVFX;
 
 
     // Start is called before the first frame update
@@ -221,7 +222,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 newPosition = new Vector3(-transform.forward.z * velocity.x, velocity.y, transform.forward.x * velocity.x) * Time.deltaTime;
             characterController.Move(newPosition);
-
+            
             velocity.y += gravity * Time.deltaTime;
         }
         //Debug.Log(lastCornerPosition);
@@ -257,14 +258,28 @@ public class PlayerController : MonoBehaviour
         return corners;
     }
 
-    public void death()
+    public void death(Collider c)
     {
-        Debug.Log("Dead!");
         if (!dead)
             velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
         dead = true;
         //animator.Play("Falling");
         animator.Play("Knocked Down");
+
+        if (c.gameObject.name.Contains("Cannon"))
+        {
+            hitVFX.Play();
+        }
+        else if (c.gameObject.name.Contains("Spike"))
+        {
+            //Debug.Log("Spikes");
+            // sonido pinchos
+        }
+        else if (c.gameObject.name.Contains("Saw"))
+        {
+            //Debug.Log("Saw");
+            // sonido sierra
+        }
     }
 
     public void alive()
@@ -421,4 +436,5 @@ public class PlayerController : MonoBehaviour
     {
         return win;
     }
+
 }
