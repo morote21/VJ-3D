@@ -10,12 +10,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpHeight;
     [SerializeField] private AudioSource jumpSoundEffect;
     [SerializeField] private AudioSource turnSoundEffect;
+    [SerializeField] private AudioSource doubleJumpSoundEffect;
 
     private Collider actualCollider;
     private Collider jumpCollider;
 
     //private int score = 0;
-    private int coins = 0, corners = 0;
+    private int corners = 0;
 
     private float speedMovement, gravity = -50.0f, currentTime, djumpTime;
     private CharacterController characterController;
@@ -62,7 +63,7 @@ public class PlayerController : MonoBehaviour
                     animator.Play("DoubleJump");
                     secondJump = false;
                     //Debug.Log("Second jump");
-                    jumpSoundEffect.Play();
+                    doubleJumpSoundEffect.Play();
                     stopTimer();
                 }
             }
@@ -201,7 +202,7 @@ public class PlayerController : MonoBehaviour
                             animator.Play("DoubleJump");
                             secondJump = false;
                             //Debug.Log("Second jump");
-                            jumpSoundEffect.Play();
+                            doubleJumpSoundEffect.Play();
                         }
                     }
                 }
@@ -233,6 +234,7 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(new Vector3(0f, -90f, 0f));
         canJump = true;
         corners += 1;
+        GameManager.instance.setHighScore(corners);   // si es highscore o no se comprueba dentro de gm
     }
 
 
@@ -241,6 +243,7 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(new Vector3(0f, 90f, 0f));
         canJump = true;
         corners += 1;
+        GameManager.instance.setHighScore(corners);   // si es highscore o no se comprueba dentro de gm
     }
 
     public void setCanJump(bool state)
@@ -248,15 +251,6 @@ public class PlayerController : MonoBehaviour
         canJump = state;
     }
 
-    public void coinCollected()
-    {
-        coins += 1;
-    }
-
-    public int getCoinsCollected()
-    {
-        return coins;
-    }
 
     public int getCornersTurned()
     {
