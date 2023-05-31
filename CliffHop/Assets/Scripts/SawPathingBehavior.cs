@@ -14,7 +14,7 @@ public class SawPathingBehavior : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float rotationSpeed;
 
-
+    public AudioSource soundFX;
 
     void Start()
     {
@@ -54,6 +54,10 @@ public class SawPathingBehavior : MonoBehaviour
         else if (other.CompareTag("Untagged"))
         {
             speed = -speed;
+        }
+        else if (other.CompareTag("Player"))
+        {
+            soundFX.Play();
         }
     }
 

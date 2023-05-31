@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpikeAnimationScript : MonoBehaviour
 {
     private Animator animator;
+    public AudioSource soundFX;
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
@@ -14,6 +15,7 @@ public class SpikeAnimationScript : MonoBehaviour
             //activate = true;
             //Debug.Log("Spike trap activated");
             animator.SetBool("Activate", true);
+            soundFX.Play();
         }
     }
 }
