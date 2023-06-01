@@ -20,6 +20,8 @@ public class VictoryMenu : MonoBehaviour
         Time.timeScale = 0f;
         isPaused = true;
         GameManager.instance.playVictoryMusic();
+        GameManager.instance.setGameIsPaused(isPaused);
+        GameManager.instance.stopMusic();
     }
 
 

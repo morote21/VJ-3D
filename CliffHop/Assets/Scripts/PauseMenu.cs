@@ -32,6 +32,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
         GameManager.instance.resumeMusic();
+        GameManager.instance.setGameIsPaused(isPaused);
     }
 
     public void pause()
@@ -40,6 +41,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         isPaused = true;
         GameManager.instance.pauseMusic();
+        GameManager.instance.setGameIsPaused(isPaused);
     }
 
     public void loadMenu()
