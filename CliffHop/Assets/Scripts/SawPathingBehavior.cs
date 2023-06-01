@@ -14,7 +14,7 @@ public class SawPathingBehavior : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float rotationSpeed;
 
-
+    public AudioSource soundFX;
 
     void Start()
     {
@@ -28,12 +28,12 @@ public class SawPathingBehavior : MonoBehaviour
         {
             // por defecto los rotates y translates se hacen en local space (space.self)
             transform.Rotate(0, rotationSpeed * Time.deltaTime, 0, Space.Self);
-            transform.Translate(speed, 0, 0, Space.World);
+            transform.Translate(speed * Time.deltaTime, 0, 0, Space.World);
         }
         else
         {
             transform.Rotate(0, rotationSpeed * Time.deltaTime, 0, Space.Self);
-            transform.Translate(0, 0, speed, Space.World);
+            transform.Translate(0, 0, speed * Time.deltaTime, Space.World);
         }
     }
 
@@ -54,6 +54,10 @@ public class SawPathingBehavior : MonoBehaviour
         else if (other.CompareTag("Untagged"))
         {
             speed = -speed;
+        }
+        else if (other.CompareTag("Player"))
+        {
+            soundFX.Play();
         }
     }
 

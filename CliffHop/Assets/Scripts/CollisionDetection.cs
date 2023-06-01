@@ -9,6 +9,9 @@ public class CollisionDetection : MonoBehaviour
     private Collider actualCollider;
 
     [SerializeField] private AudioSource coinSoundEffect;
+    [SerializeField] private AudioSource screamSoundEffect;
+    [SerializeField] private AudioSource slowSoundEffect;
+
 
 
     void OnTriggerEnter(Collider c)
@@ -23,9 +26,11 @@ public class CollisionDetection : MonoBehaviour
         }
         else if (c.gameObject.tag == "Death")
         {
-            if (!pc.isGodMode())
+            if (!pc.isGodMode() && pc.isAlive())
             {
-                pc.death();
+                pc.death(c);
+                GameManager.instance.gameMusic.Stop();
+                screamSoundEffect.Play();
             }
         }
         else if (c.gameObject.tag == "Slow")
@@ -33,18 +38,12 @@ public class CollisionDetection : MonoBehaviour
             if (!pc.isGodMode())
             {
                 pc.slow(true);
+                slowSoundEffect.Play();
             }
         }
         else if (c.gameObject.tag == "Win")
         {
             pc.victory();
-        }
-        else if (c.gameObject.tag == "Underwater")
-        {
-            if (pc.isGodMode())
-                pc.respawnToLastCorner();
-            else
-                pc.death();
         }
         else
         {

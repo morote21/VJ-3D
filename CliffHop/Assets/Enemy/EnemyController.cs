@@ -120,15 +120,32 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            if (!lastAnimationPlayed && pc.hasWon())
+            if (!isGrounded)
             {
-                animator.Play("Death");
+                isGrounded = Physics.CheckSphere(transform.position, 0.1f, groundLayers, QueryTriggerInteraction.Ignore);
+
+                velocity.y += gravity * Time.deltaTime;
+                velocity.x = speedMovement;
+                Vector3 newPosition = new Vector3(transform.forward.x * velocity.x, velocity.y, transform.forward.z * velocity.x) * Time.deltaTime;
+                characterController.Move(newPosition);
+
+                animator.SetFloat("Speed", velocity.x);
+                animator.SetBool("IsGrounded", isGrounded);
+                animator.SetFloat("VerticalSpeed", velocity.y);
+                animator.SetBool("SecondJump", secondJump);
             }
-            else if (!lastAnimationPlayed && !pc.isAlive())
+            else
             {
-                animator.Play("Victory Idle");
+                if (!lastAnimationPlayed && pc.hasWon())
+                {
+                    animator.Play("Death");
+                }
+                else if (!lastAnimationPlayed && !pc.isAlive())
+                {
+                    animator.Play("Victory Idle");
+                }
+                lastAnimationPlayed = true;
             }
-            lastAnimationPlayed = true;
         }
     }
 

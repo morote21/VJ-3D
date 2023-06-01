@@ -8,6 +8,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public AudioSource gameMusic;
+    public AudioSource defeatMusic;
+    public AudioSource victoryMusic;
+
+    private float startTimer;
+    private bool gameStarted, newHighScore;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -15,6 +21,10 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             gameMusic.Play();
+            newHighScore = false;
+            //startTimer = 0f;
+            //Time.timeScale = 0f;
+            //gameStarted = false;
         }
         else
         {
@@ -25,7 +35,23 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        /*
+        startTimer += Time.unscaledDeltaTime;
+        if (startTimer > 5) Debug.Log("GO!");
+        else if (startTimer > 4) Debug.Log("4!");
+        else if (startTimer > 3) Debug.Log("1!");
+        else if (startTimer > 2) Debug.Log("2!");
+        else if (startTimer > 1) Debug.Log("3!");
+
+        if (startTimer >= 5f && !gameStarted)   // a los 3 segundos empieza el juego
+        {
+            Time.timeScale = 1f;
+            gameStarted = true;
+        }
+        */
+        //if (gameStarted)
+        //{
+        if (Input.GetKeyDown(KeyCode.R))    // reseteamos monedas y highscore
         {
             resetAll();
         }
@@ -33,6 +59,7 @@ public class GameManager : MonoBehaviour
         {
             loadLevel();
         }
+        //}
     }
 
     public void coinPickup()
@@ -45,6 +72,7 @@ public class GameManager : MonoBehaviour
         if (score > PlayerPrefs.GetInt("HighScore", 0))
         {
             PlayerPrefs.SetInt("HighScore", score);
+            newHighScore = true;
             Debug.Log("High score! : " + getHighScore());
         }
     }
@@ -63,6 +91,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Coins", 0);
         PlayerPrefs.SetInt("HighScore", 0);
+        newHighScore = false;
     }
 
     public void spendCoins(int quantity)
@@ -75,5 +104,39 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("SampleScene");
         gameMusic.Stop();
         gameMusic.Play();
+        gameStarted = false;
+        startTimer = 0f;
+        newHighScore = false;
     }
+
+    public void pauseMusic()
+    {
+        gameMusic.Pause();
+    }
+
+    public void resumeMusic()
+    {
+        gameMusic.Play();
+    }
+
+    public void loadMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void playDefeatMusic()
+    {
+        defeatMusic.Play();
+    }
+
+    public void playVictoryMusic()
+    {
+
+    }
+
+    public bool hasNewHighScore()
+    {
+        return newHighScore;
+    }
+
 }
