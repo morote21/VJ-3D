@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
     public Material cornerPressedMaterial;
     public ParticleSystem hitVFX;
+    public ParticleSystem runVFX;
 
     public DefeatMenu dm;
     public VictoryMenu vm;
@@ -71,6 +72,10 @@ public class PlayerController : MonoBehaviour
                     //Debug.Log("Second jump");
                     doubleJumpSoundEffect.Play();
                     stopTimer();
+                    if (runVFX.isPlaying)
+                    {
+                        runVFX.Stop();
+                    }
                 }
             }
 
@@ -85,14 +90,26 @@ public class PlayerController : MonoBehaviour
                 jumping = false;
                 secondJump = false;
                 animator.Play("Running");
+                if (!runVFX.isPlaying)
+                {
+                    runVFX.Play();
+                }
             } 
             else
             {
+                if (runVFX.isPlaying)
+                {
+                    runVFX.Stop();
+                }
                 velocity.y += gravity * Time.deltaTime;
             }
 
             if (!isGrounded && !jumping && !godmode)
             {
+                if (runVFX.isPlaying)
+                {
+                    runVFX.Stop();
+                }
                 animator.Play("Falling");
             }
 
@@ -145,70 +162,73 @@ public class PlayerController : MonoBehaviour
 
             else
             {
-                if (Input.GetButtonDown("Jump"))
+                if (!GameManager.instance.isGamePaused())
                 {
-                    if (!canJump)
+                    if (Input.GetButtonDown("Jump"))
                     {
-                        if (turnDir == 1)
+                        if (!canJump)
                         {
-                            rotate_player_left();
-
-                            turnSoundEffect.Play();
-
-                            //actualCollider.gameObject.GetComponent<Renderer>().material.color = Color.green;
-                            actualCollider.gameObject.GetComponentInChildren<Renderer>().material = cornerPressedMaterial;
-
-                            if (gameObject.transform.position.z < actualCollider.transform.position.z)   // en caso de que hayamos girado despues de que los centros sean iguales (en caso de la z va al reves)
+                            if (turnDir == 1)
                             {
-                                lastCornerPosition = actualCollider.transform.position;
-                                characterController.Move(new Vector3(0, 0, -(gameObject.transform.position.z - actualCollider.transform.position.z)));
-                            }
-                            else if (gameObject.transform.position.z > actualCollider.transform.position.z)
-                            {
-                                lastCornerPosition = actualCollider.transform.position;
-                                characterController.Move(new Vector3(0, 0, (actualCollider.transform.position.z - gameObject.transform.position.z)));
-                            }
-                        }
-                        else
-                        {
-                            rotate_player_right();
+                                rotate_player_left();
 
-                            turnSoundEffect.Play();
+                                turnSoundEffect.Play();
 
-                            //actualCollider.gameObject.GetComponent<Renderer>().material.color = Color.green;
-                            actualCollider.gameObject.GetComponentInChildren<Renderer>().material = cornerPressedMaterial;
+                                //actualCollider.gameObject.GetComponent<Renderer>().material.color = Color.green;
+                                actualCollider.gameObject.GetComponentInChildren<Renderer>().material = cornerPressedMaterial;
 
-                            if (gameObject.transform.position.x < actualCollider.transform.position.x)   // en caso de que hayamos girado antes de que los centros sean iguales, se ajusta un poco para eviar problemas
-                            {
-                                lastCornerPosition = actualCollider.transform.position;
-                                characterController.Move(new Vector3((actualCollider.transform.position.x - gameObject.transform.position.x), 0, 0));
+                                if (gameObject.transform.position.z < actualCollider.transform.position.z)   // en caso de que hayamos girado despues de que los centros sean iguales (en caso de la z va al reves)
+                                {
+                                    lastCornerPosition = actualCollider.transform.position;
+                                    characterController.Move(new Vector3(0, 0, -(gameObject.transform.position.z - actualCollider.transform.position.z)));
+                                }
+                                else if (gameObject.transform.position.z > actualCollider.transform.position.z)
+                                {
+                                    lastCornerPosition = actualCollider.transform.position;
+                                    characterController.Move(new Vector3(0, 0, (actualCollider.transform.position.z - gameObject.transform.position.z)));
+                                }
                             }
-                            else if (gameObject.transform.position.x > actualCollider.transform.position.x)
+                            else
                             {
-                                lastCornerPosition = actualCollider.transform.position;
-                                characterController.Move(new Vector3(-(gameObject.transform.position.x - actualCollider.transform.position.x), 0, 0));
+                                rotate_player_right();
+
+                                turnSoundEffect.Play();
+
+                                //actualCollider.gameObject.GetComponent<Renderer>().material.color = Color.green;
+                                actualCollider.gameObject.GetComponentInChildren<Renderer>().material = cornerPressedMaterial;
+
+                                if (gameObject.transform.position.x < actualCollider.transform.position.x)   // en caso de que hayamos girado antes de que los centros sean iguales, se ajusta un poco para eviar problemas
+                                {
+                                    lastCornerPosition = actualCollider.transform.position;
+                                    characterController.Move(new Vector3((actualCollider.transform.position.x - gameObject.transform.position.x), 0, 0));
+                                }
+                                else if (gameObject.transform.position.x > actualCollider.transform.position.x)
+                                {
+                                    lastCornerPosition = actualCollider.transform.position;
+                                    characterController.Move(new Vector3(-(gameObject.transform.position.x - actualCollider.transform.position.x), 0, 0));
+                                }
                             }
-                        }
                     
-                    } else
-                    {
+                        } else
+                        {
                     
-                        if (!jumping)
-                        {
-                            velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
-                            secondJump = true;
-                            animator.Play("Jump");
-                            jumping = true;
-                            jumpSoundEffect.Play();
-                        }
-                        else if (jumping && !isGrounded && secondJump)
-                        {
-                            velocity.y = 0;
-                            velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
-                            animator.Play("DoubleJump");
-                            secondJump = false;
-                            //Debug.Log("Second jump");
-                            doubleJumpSoundEffect.Play();
+                            if (!jumping)
+                            {
+                                velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
+                                secondJump = true;
+                                animator.Play("Jump");
+                                jumping = true;
+                                jumpSoundEffect.Play();
+                            }
+                            else if (jumping && !isGrounded && secondJump)
+                            {
+                                velocity.y = 0;
+                                velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
+                                animator.Play("DoubleJump");
+                                secondJump = false;
+                                //Debug.Log("Second jump");
+                                doubleJumpSoundEffect.Play();
+                            }
                         }
                     }
                 }
@@ -307,6 +327,11 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Saw");
             // sonido sierra
         }
+
+        if (runVFX.isPlaying)
+        {
+            runVFX.Stop();
+        }
     }
 
     public void alive()
@@ -357,6 +382,11 @@ public class PlayerController : MonoBehaviour
         velocity.x = velocity.y = 0;
         gravity = 0;
         animator.Play("Victory Idle");
+
+        if (runVFX.isPlaying)
+        {
+            runVFX.Stop();
+        }
     }
 
     public bool isGodMode()

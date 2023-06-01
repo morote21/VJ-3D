@@ -27,6 +27,8 @@ public class EnemyController : MonoBehaviour
 
     public PlayerController pc;
 
+    public ParticleSystem runVFX;
+
 
     // Start is called before the first frame update
     void Start()
@@ -62,6 +64,10 @@ public class EnemyController : MonoBehaviour
                         //Debug.Log("Second jump");
                         //jumpSoundEffect.Play();
                         stopTimer();
+                        if (runVFX.isPlaying)
+                        {
+                            runVFX.Stop();
+                        }
                     }
                 }
 
@@ -76,10 +82,18 @@ public class EnemyController : MonoBehaviour
                     jumping = false;
                     secondJump = false;
                     animator.Play("Running");
+                    if (!runVFX.isPlaying)
+                    {
+                        runVFX.Play();
+                    }
                 }
                 else
                 {
                     velocity.y += gravity * Time.deltaTime;
+                    if (runVFX.isPlaying)
+                    {
+                        runVFX.Stop();
+                    }
                 }
 
                 velocity.x = speedMovement;
@@ -284,6 +298,10 @@ public class EnemyController : MonoBehaviour
         velocity.x = velocity.y = 0;
         stop = true;
         animator.Play("Zombie Idle");
+        if (runVFX.isPlaying)
+        {
+            runVFX.Stop();
+        }
     }
 
 }
