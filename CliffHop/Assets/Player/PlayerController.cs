@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     //private int score = 0;
     private int corners = 0;
 
-    private float speedMovement, gravity = -50.0f, currentTime, djumpTime;
+    private float speedMovement, gravity = -50.0f, currentTime, djumpTime, defeatTimer, victoryTimer;
     private CharacterController characterController;
     private Transform playerPosition;
     private Animator animator;
@@ -34,6 +34,9 @@ public class PlayerController : MonoBehaviour
     public Material cornerPressedMaterial;
     public ParticleSystem hitVFX;
 
+    public DefeatMenu dm;
+    public VictoryMenu vm;
+
 
     // Start is called before the first frame update
     void Start()
@@ -45,8 +48,10 @@ public class PlayerController : MonoBehaviour
         transform.forward = new Vector3(1, 0, 0);   // se inicia mirando hacia la derecha (direccion de las x)
         speedMovement = normalRunSpeed;
         lastCornerPosition = new Vector3(2, 1.01f, 0);
-        currentTime = 0f;
+        currentTime = defeatTimer = victoryTimer = 0f;
         djumpTime = 0.55f;
+        animator.Play("Breathing Idle");
+        velocity.x = velocity.y = 0f;
     }
 
     // Update is called once per frame
@@ -224,6 +229,28 @@ public class PlayerController : MonoBehaviour
             characterController.Move(newPosition);
             
             velocity.y += gravity * Time.deltaTime;
+
+            if (win)
+            {
+                victoryTimer += Time.deltaTime;
+                if (victoryTimer >= 3f)
+                {
+                    victoryTimer = 0f;
+                    vm.activate();
+                }
+            }
+            else
+            {
+                defeatTimer += Time.deltaTime;
+                if (defeatTimer >= 2f)
+                {
+                    defeatTimer = 0f;
+                    dm.activate();
+                }
+            }
+
+
+
         }
         //Debug.Log(lastCornerPosition);
         //Debug.Log(canJump);

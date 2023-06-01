@@ -45,13 +45,6 @@ public class CollisionDetection : MonoBehaviour
         {
             pc.victory();
         }
-        else if (c.gameObject.tag == "Underwater")
-        {
-            if (pc.isGodMode())
-                pc.respawnToLastCorner();
-            else
-                pc.death(c);
-        }
         else
         {
             // estado normal del jugador (puede saltar y velocidad normal)
