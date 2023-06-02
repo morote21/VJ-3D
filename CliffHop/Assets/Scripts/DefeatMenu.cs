@@ -20,18 +20,23 @@ public class DefeatMenu : MonoBehaviour
         Time.timeScale = 0f;
         isPaused = true;
         GameManager.instance.playDefeatMusic();
+        GameManager.instance.setGameIsPaused(isPaused);
+        GameManager.instance.stopMusic();
     }
 
     public void retry()
     {
         Time.timeScale = 1f;
         GameManager.instance.loadLevel();
+        isPaused = false;
+        GameManager.instance.setGameIsPaused(isPaused);
     }
 
     public void loadMenu()
     {
         Time.timeScale = 1f;
         GameManager.instance.loadMenu();
+        GameManager.instance.setGameIsPaused(isPaused);
     }
 
 }

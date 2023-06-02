@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public AudioSource victoryMusic;
 
     private float startTimer;
-    private bool gameStarted, newHighScore;
+    private bool gameStarted, newHighScore, gameIsPaused;
 
     // Start is called before the first frame update
     private void Awake()
@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
             instance = this;
             gameMusic.Play();
             newHighScore = false;
+            gameIsPaused = false;
             //startTimer = 0f;
             //Time.timeScale = 0f;
             //gameStarted = false;
@@ -51,13 +52,16 @@ public class GameManager : MonoBehaviour
         */
         //if (gameStarted)
         //{
-        if (Input.GetKeyDown(KeyCode.R))    // reseteamos monedas y highscore
+        if (!gameIsPaused)
         {
-            resetAll();
-        }
-        else if (Input.GetKeyDown(KeyCode.Q))   // recargamos toda la escena 
-        {
-            loadLevel();
+            if (Input.GetKeyDown(KeyCode.R))    // reseteamos monedas y highscore
+            {
+                resetAll();
+            }
+            else if (Input.GetKeyDown(KeyCode.Q))   // recargamos toda la escena 
+            {
+                loadLevel();
+            }
         }
         //}
     }
@@ -131,7 +135,7 @@ public class GameManager : MonoBehaviour
 
     public void playVictoryMusic()
     {
-
+        victoryMusic.Play();
     }
 
     public bool hasNewHighScore()
@@ -139,4 +143,18 @@ public class GameManager : MonoBehaviour
         return newHighScore;
     }
 
+    public bool isGamePaused()
+    {
+        return gameIsPaused;
+    }
+
+    public void setGameIsPaused(bool paused)
+    {
+        gameIsPaused = paused;
+    }
+
+    public void stopMusic()
+    {
+        gameMusic.Stop();
+    }
 }
