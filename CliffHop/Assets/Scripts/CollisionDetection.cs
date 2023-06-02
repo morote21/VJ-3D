@@ -19,10 +19,14 @@ public class CollisionDetection : MonoBehaviour
         
         if (c.gameObject.tag == "Coin")
         {
-            GameManager.instance.coinPickup();
-            //c.gameObject.SetActive(false);
-            Destroy(c.gameObject);
-            coinSoundEffect.Play();
+            if (!c.GetComponent<CoinAnimation>().getPicked())
+            {
+                GameManager.instance.coinPickup();
+                //c.gameObject.SetActive(false);
+                c.GetComponent<CoinAnimation>().pickupAnimation();
+                //Destroy(c.gameObject);
+                coinSoundEffect.Play();
+            }
         }
         else if (c.gameObject.tag == "Death")
         {
