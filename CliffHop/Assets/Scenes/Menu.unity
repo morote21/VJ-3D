@@ -536,10 +536,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Programming/Design: Jos\xE9 Morote Garc\xEDa\n\t\t\t     David Varo Mart\xEDnez\n\nAssets
-    from:  Unity Asset Store\nhttps://pauboeg.itch.io/buttons-ui-videogames (Buttons)\n\nhttps://fonts.google.com/specimen/Roboto+Mono
-    (Roboto font type)\nhttps://fonts.google.com/specimen/Pacifico (Pacifico font
-    type)\nhttps://fonts.google.com/specimen/Pangolin (Pangolin font type)\n\nhttps://quaternius.itch.io/ultimate-platformer-pack
-    (Obstacles)\n\n\n\n"
+    from:  Unity Asset Store, Mixamo\nhttps://pauboeg.itch.io/buttons-ui-videogames
+    (Buttons)\n\nhttps://fonts.google.com/specimen/Roboto+Mono (Roboto font type)\nhttps://fonts.google.com/specimen/Pacifico
+    (Pacifico font type)\nhttps://fonts.google.com/specimen/Pangolin (Pangolin font
+    type)\n\nhttps://quaternius.itch.io/ultimate-platformer-pack (Obstacles)\n\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4f2a395fcfaa4334c9df1d56b675bf46, type: 2}
   m_sharedMaterial: {fileID: 1136348211176515071, guid: 4f2a395fcfaa4334c9df1d56b675bf46, type: 2}
