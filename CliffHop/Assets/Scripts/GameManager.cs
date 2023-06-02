@@ -23,9 +23,6 @@ public class GameManager : MonoBehaviour
             gameMusic.Play();
             newHighScore = false;
             gameIsPaused = false;
-            //startTimer = 0f;
-            //Time.timeScale = 0f;
-            //gameStarted = false;
         }
         else
         {
@@ -36,22 +33,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        /*
-        startTimer += Time.unscaledDeltaTime;
-        if (startTimer > 5) Debug.Log("GO!");
-        else if (startTimer > 4) Debug.Log("4!");
-        else if (startTimer > 3) Debug.Log("1!");
-        else if (startTimer > 2) Debug.Log("2!");
-        else if (startTimer > 1) Debug.Log("3!");
-
-        if (startTimer >= 5f && !gameStarted)   // a los 3 segundos empieza el juego
-        {
-            Time.timeScale = 1f;
-            gameStarted = true;
-        }
-        */
-        //if (gameStarted)
-        //{
+        
         if (!gameIsPaused)
         {
             if (Input.GetKeyDown(KeyCode.R))    // reseteamos monedas y highscore
@@ -63,7 +45,7 @@ public class GameManager : MonoBehaviour
                 loadLevel();
             }
         }
-        //}
+        
     }
 
     public void coinPickup()
