@@ -6,6 +6,7 @@ public class CollisionDetection : MonoBehaviour
 {
     // Start is called before the first frame update
     public PlayerController pc;
+    public EnemyController ec;
     private Collider actualCollider;
 
     [SerializeField] private AudioSource coinSoundEffect;
@@ -48,6 +49,14 @@ public class CollisionDetection : MonoBehaviour
         else if (c.gameObject.tag == "Win")
         {
             pc.victory();
+        }
+        else if (c.gameObject.tag == "Underwater")
+        {
+            if (pc.isGodMode())
+            {
+                pc.respawnToLastCorner();
+                ec.respawnToLastCorner();
+            }
         }
         else
         {

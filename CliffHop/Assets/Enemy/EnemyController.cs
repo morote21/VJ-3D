@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
 
     private Collider actualCollider;
     private Collider jumpCollider;
-    private float speedMovement, gravity = -50.0f, currentTime, djumpTime;
+    private float speedMovement, gravity = -50.0f, currentTime, djumpTime, respawnTimer, respawnTime;
     private CharacterController characterController;
     private Transform playerPosition;
     private Animator animator;
@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour
     public int turnDir = 0;     // 0 -> turn right
                                 // 1 -> turn left
 
-    private bool jumping, win, stop, lastAnimationPlayed;
+    private bool jumping, win, stop, lastAnimationPlayed, respawned;
     private int corners;
 
     public PlayerController pc;
@@ -40,9 +40,11 @@ public class EnemyController : MonoBehaviour
         transform.forward = new Vector3(1, 0, 0);   // se inicia mirando hacia la derecha (direccion de las x)
         speedMovement = normalRunSpeed;
         lastCornerPosition = new Vector3(2, 1.01f, 0);
-        currentTime = 0f;
+        currentTime = respawnTime = 0f;
         djumpTime = 0.55f;
+        respawnTimer = 1f;
         corners = 0;
+        respawned = false;
     }
 
     // Update is called once per frame
@@ -50,87 +52,100 @@ public class EnemyController : MonoBehaviour
     {
         if (!pc.hasWon() && pc.isAlive())
         {
-            if (isRunning)  // timer para el segundo salto 
+            if (respawned)      // en cuanto el personaje reaparece, tambien lo hace el zombie y espera un rato para no ir en la misma posicion que el jugador
             {
-                currentTime += Time.deltaTime;
-                if (currentTime >= djumpTime)
+                respawnTime += Time.deltaTime;
+                stopMovement();
+                if (respawnTime >= respawnTimer)
                 {
-                    if (jumping && !isGrounded && secondJump)
+                    respawned = false;
+                    resetMovement();
+                    respawnTime = 0f;
+                }
+            }
+            else
+            {
+                if (isRunning)  // timer para el segundo salto 
+                {
+                    currentTime += Time.deltaTime;
+                    if (currentTime >= djumpTime)
+                    {
+                        if (jumping && !isGrounded && secondJump)
+                        {
+                            velocity.y = 0;
+                            velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
+                            animator.Play("DoubleJump");
+                            secondJump = false;
+                            //Debug.Log("Second jump");
+                            //jumpSoundEffect.Play();
+                            stopTimer();
+                            if (runVFX.isPlaying)
+                            {
+                                runVFX.Stop();
+                            }
+                        }
+                    }
+                }
+
+                if (!win)
+                {
+                    isGrounded = Physics.CheckSphere(transform.position, 0.1f, groundLayers, QueryTriggerInteraction.Ignore);
+                    if (isGrounded && velocity.y < 0 && velocity.x > 0)
                     {
                         velocity.y = 0;
-                        velocity.y += Mathf.Sqrt(jumpHeight * -2 * gravity);
-                        animator.Play("DoubleJump");
+                        jumping = false;
                         secondJump = false;
-                        //Debug.Log("Second jump");
-                        //jumpSoundEffect.Play();
-                        stopTimer();
+                        animator.Play("Running");
+                        if (!runVFX.isPlaying)
+                        {
+                            runVFX.Play();
+                        }
+                    }
+                    else
+                    {
+                        velocity.y += gravity * Time.deltaTime;
                         if (runVFX.isPlaying)
                         {
                             runVFX.Stop();
                         }
                     }
-                }
 
-            }
+                    velocity.x = speedMovement;
 
-            if (!win)
-            {
-                isGrounded = Physics.CheckSphere(transform.position, 0.1f, groundLayers, QueryTriggerInteraction.Ignore);
-                if (isGrounded && velocity.y < 0 && velocity.x > 0)
-                {
-                    velocity.y = 0;
-                    jumping = false;
-                    secondJump = false;
-                    animator.Play("Running");
-                    if (!runVFX.isPlaying)
+                    if (!canJump)
                     {
-                        runVFX.Play();
-                    }
-                }
-                else
-                {
-                    velocity.y += gravity * Time.deltaTime;
-                    if (runVFX.isPlaying)
-                    {
-                        runVFX.Stop();
-                    }
-                }
-
-                velocity.x = speedMovement;
-
-                if (!canJump)
-                {
-                    if (turnDir == 1)   // corner left
-                    {
-                        if (gameObject.transform.position.z < actualCollider.transform.position.z)
+                        if (turnDir == 1)   // corner left
                         {
-                            rotate_player_left();
-                            //turnSoundEffect.Play();
-                            lastCornerPosition = actualCollider.transform.position;
-                            characterController.Move(new Vector3(0, 0, -(gameObject.transform.position.z - actualCollider.transform.position.z)));
+                            if (gameObject.transform.position.z < actualCollider.transform.position.z)
+                            {
+                                rotate_player_left();
+                                //turnSoundEffect.Play();
+                                lastCornerPosition = actualCollider.transform.position;
+                                characterController.Move(new Vector3(0, 0, -(gameObject.transform.position.z - actualCollider.transform.position.z)));
+                            }
+                        }
+                        else // corner right
+                        {
+                            if (gameObject.transform.position.x > actualCollider.transform.position.x)
+                            {
+                                rotate_player_right();
+                                //turnSoundEffect.Play();
+                                lastCornerPosition = actualCollider.transform.position;
+                                characterController.Move(new Vector3(-(gameObject.transform.position.x - actualCollider.transform.position.x), 0, 0));
+                            }
+
                         }
                     }
-                    else // corner right
-                    {
-                        if (gameObject.transform.position.x > actualCollider.transform.position.x)
-                        {
-                            rotate_player_right();
-                            //turnSoundEffect.Play();
-                            lastCornerPosition = actualCollider.transform.position;
-                            characterController.Move(new Vector3(-(gameObject.transform.position.x - actualCollider.transform.position.x), 0, 0));
-                        }
 
-                    }
+                    Vector3 newPosition = new Vector3(transform.forward.x * velocity.x, velocity.y, transform.forward.z * velocity.x) * Time.deltaTime;
+                    characterController.Move(newPosition);
+
                 }
-
-                Vector3 newPosition = new Vector3(transform.forward.x * velocity.x, velocity.y, transform.forward.z * velocity.x) * Time.deltaTime;
-                characterController.Move(newPosition);
-
-                animator.SetFloat("Speed", velocity.x);
-                animator.SetBool("IsGrounded", isGrounded);
-                animator.SetFloat("VerticalSpeed", velocity.y);
-                animator.SetBool("SecondJump", secondJump);
             }
+            animator.SetFloat("Speed", velocity.x);
+            animator.SetBool("IsGrounded", isGrounded);
+            animator.SetFloat("VerticalSpeed", velocity.y);
+            animator.SetBool("SecondJump", secondJump);
         }
         else
         {
@@ -204,6 +219,8 @@ public class EnemyController : MonoBehaviour
         characterController.enabled = false;
         transform.position = lastCornerPosition;
         characterController.enabled = true;
+        animator.Play("Zombie Idle");
+        respawned = true;
 
         canJump = true;
 
@@ -301,6 +318,16 @@ public class EnemyController : MonoBehaviour
         if (runVFX.isPlaying)
         {
             runVFX.Stop();
+        }
+    }
+
+    public void resetMovement()
+    {
+        speedMovement = normalRunSpeed;
+        animator.Play("Running");
+        if (!runVFX.isPlaying)
+        {
+            runVFX.Play();
         }
     }
 
