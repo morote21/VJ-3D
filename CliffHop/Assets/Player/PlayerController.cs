@@ -382,6 +382,7 @@ public class PlayerController : MonoBehaviour
         velocity.x = velocity.y = 0;
         gravity = 0;
         animator.Play("Victory Idle");
+        GameManager.instance.stopMusic();
 
         if (runVFX.isPlaying)
         {

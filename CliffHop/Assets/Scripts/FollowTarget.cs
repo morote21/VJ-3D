@@ -20,6 +20,7 @@ public class FollowTarget : MonoBehaviour
 
     PlayerController pc; // para tener a mano
 
+    private bool rotated;
 
     // Start is called before the first frame update
     void Start()
@@ -27,65 +28,80 @@ public class FollowTarget : MonoBehaviour
         currentv_x = currentv_z = currentv_y = 0;
         previousForward = target.forward;
         lastGround_y = target.position.y;
-
+        
         pc = target.GetComponent<PlayerController>();
+
+        rotated = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (pc.isAlive()) { 
+        if (pc.hasWon())
+        {
+            velocity = 0;
+            velocity_y = 0;
+            gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+
+            GameObject mainCamera = this.gameObject.transform.GetChild(0).gameObject;
+            mainCamera.transform.rotation = Quaternion.Euler(17, -90, 0);
+            mainCamera.transform.localPosition = new Vector3(15, 8, 0);
+        }
+        else
+        {
+            if (pc.isAlive()) { 
         
-            if (previousForward != target.forward)
-                currentv_x = currentv_z = velocity;
+                if (previousForward != target.forward)
+                    currentv_x = currentv_z = velocity;
 
-            Vector3 targetReference = target.position + target.forward*forward_displacement;
-            if (pc.isOnGround())
-                lastGround_y = targetReference.y; // da igual si de aquí o de target
+                Vector3 targetReference = target.position + target.forward*forward_displacement;
+                if (pc.isOnGround())
+                    lastGround_y = targetReference.y; // da igual si de aquí o de target
         
 
-            // Eje x
-            if (currentv_x != 0)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetReference.x, transform.position.y, transform.position.z), currentv_x * Time.deltaTime);
-                if (transform.position.x == target.position.x)
-                    currentv_x = 0;
+                // Eje x
+                if (currentv_x != 0)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetReference.x, transform.position.y, transform.position.z), currentv_x * Time.deltaTime);
+                    if (transform.position.x == target.position.x)
+                        currentv_x = 0;
 
-            }else{
-                if (transform.position.x + offset_x <= targetReference.x || transform.position.x - offset_x >= targetReference.x)
-                    currentv_x = velocity;
-            }
+                }else{
+                    if (transform.position.x + offset_x <= targetReference.x || transform.position.x - offset_x >= targetReference.x)
+                        currentv_x = velocity;
+                }
 
-            // Eje z
-            if (currentv_z != 0)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y, targetReference.z), currentv_z * Time.deltaTime);
-                if (transform.position.z == target.position.z)
-                    currentv_z = 0;
+                // Eje z
+                if (currentv_z != 0)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y, targetReference.z), currentv_z * Time.deltaTime);
+                    if (transform.position.z == target.position.z)
+                        currentv_z = 0;
 
-            }else{
-                if (transform.position.z + offset_z <= targetReference.z || transform.position.z - offset_z >= targetReference.z)
-                    currentv_z = velocity;
-            }
+                }else{
+                    if (transform.position.z + offset_z <= targetReference.z || transform.position.z - offset_z >= targetReference.z)
+                        currentv_z = velocity;
+                }
 
-            //Debug.Log("Velocidad x = " + currentv_x);
-            //Debug.Log("Velocidad z = " + currentv_z);
-            // Eje y (por determinar)
-            if (currentv_y != 0)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, lastGround_y, transform.position.z), currentv_y * Time.deltaTime);
-                if (transform.position.y == lastGround_y)
-                    currentv_y = 0;
+                //Debug.Log("Velocidad x = " + currentv_x);
+                //Debug.Log("Velocidad z = " + currentv_z);
+                // Eje y (por determinar)
+                if (currentv_y != 0)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, lastGround_y, transform.position.z), currentv_y * Time.deltaTime);
+                    if (transform.position.y == lastGround_y)
+                        currentv_y = 0;
 
-            }
-            else
-            {
-                if (transform.position.y + offset_y <= lastGround_y || transform.position.y - offset_y >= lastGround_y)
-                    currentv_y = velocity_y;
-            }
+                }
+                else
+                {
+                    if (transform.position.y + offset_y <= lastGround_y || transform.position.y - offset_y >= lastGround_y)
+                        currentv_y = velocity_y;
+                }
 
 
-            previousForward = target.forward; // actualizar forward previo
+                previousForward = target.forward; // actualizar forward previo
+        }
         }
     }
 }
