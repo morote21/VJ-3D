@@ -2371,7 +2371,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Grasshopper
+  m_text: Grass Hopper
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 86dfd12a7b6e40f4fb0ba3733ae89212, type: 2}
   m_sharedMaterial: {fileID: 5842845941297154052, guid: 86dfd12a7b6e40f4fb0ba3733ae89212, type: 2}
