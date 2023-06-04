@@ -12,6 +12,7 @@ public class CollisionDetection : MonoBehaviour
     [SerializeField] private AudioSource coinSoundEffect;
     [SerializeField] private AudioSource screamSoundEffect;
     [SerializeField] private AudioSource slowSoundEffect;
+    [SerializeField] private AudioSource winSoundEffect;
 
 
 
@@ -49,6 +50,7 @@ public class CollisionDetection : MonoBehaviour
         else if (c.gameObject.tag == "Win")
         {
             pc.victory();
+            winSoundEffect.Play();
         }
         else if (c.gameObject.tag == "Underwater")
         {
